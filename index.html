@@ -319,11 +319,12 @@
                 setTimeout(() => (avatarContainer.style.display = "none"), 300); // Ẩn sau khi animation kết thúc
             }
         }
-      window.addEventListener('scroll', function() {
-        let scrollTop = window.pageYOffset;
-        let video = document.querySelector('video');
-        video.style.transform = `translate3d(0, ${scrollTop * 0.5}px, 0)`; // 0.5 là hệ số parallax, bạn có thể điều chỉnh
-      });
+	// Đoạn mã cuộn video không cần thiết làm ảnh hưởng đến nút
+	window.addEventListener('scroll', function() {
+	    let scrollTop = window.pageYOffset;
+	    let video = document.querySelector('video');
+	    video.style.transform = `translate3d(0, ${scrollTop * 0.5}px, 0)`; // Điều chỉnh hiệu ứng parallax cho video
+	});
     </script>
 </body>
 </html>
