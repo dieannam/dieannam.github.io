@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dieannam</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            display: flex; /* Căn ngang nội dung */
+            align-items: center; /* Căn giữa theo chiều dọc */
+            justify-content: center; /* Căn giữa theo chiều ngang */
+        }
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Đưa video xuống phía sau nội dung */
+        }
+        .logo {
+            position: fixed;
+            top: 25%;
+            left: 53%; /* Chỉnh lại để căn giữa theo chiều ngang */
+            transform: translate(-50%, -50%); /* Căn giữa chính xác */
+            width: auto;
+            max-width: 850px; /* Giới hạn kích thước tối đa của logo */
+            max-height: 840px; /* Giới hạn chiều cao tối đa của logo */
+            z-index: 1;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column; /* Sắp xếp theo cột */
+            align-items: center;
+            text-align: center;
+            color: white;
+            z-index: 1;  /* Đưa nội dung lên trên video */
+            padding: 20px;
+        }
+        .avatar {
+            flex: 0 0 auto; /* Giữ kích thước gốc của ảnh */
+            text-align: center;
+            margin-right: 20px;
+        }
+        .avatar img {
+            max-width: 250px; /* Đảm bảo không vượt quá kích thước tối đa */
+            height: auto; /* Tự động điều chỉnh theo tỷ lệ */
+        }
+        .avatar p {
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+        .content {
+            text-align: center; /* Căn chữ sang trái */
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease forwards; /* Hiệu ứng chữ xuất hiện từ dưới lên */
+        }
+
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+             animation: fadeInUp 1s ease forwards; /* Hiệu ứng chữ xuất hiện từ dưới lên */
+             animation-delay: 0.5s; /* Chậm hơn so với h1 */
+        }
+        .links {
+            margin-top: 20px;
+        }
+        .links a {
+            color: white;
+            text-decoration: none;
+            margin: 10px 0; /* Thay đổi khoảng cách giữa các liên kết */
+            font-size: 1.2rem;
+            display: inline-block;
+            padding: 10px 20px; /* Thêm padding cho liên kết */
+            border: 2px solid white; /* Thêm border cho liên kết */
+            border-radius: 5px; /* Bo tròn góc liên kết */
+            transition: all 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+            backdrop-filter: blur(10px);
+
+        }
+
+
+        .links a:hover {
+            transform: scale(1.1); /* Phóng to khi hover */
+            box-shadow: 0px 0px 20px rgba(255,255,255,0.8); /* Đổ bóng sáng hơn khi hover */
+        }
+        @keyframes fadeInUp {
+             0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Media query cho responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            p, .links a { font-size: 1rem; }      
+        }
+
+        /* Media query cho responsive cho điện thoại */
+        @media (max-width: 768px) {
+            /* Chỉnh lại vị trí và kích thước của nút "Hiện thêm" */
+            .show-more-btn {
+                bottom: 30px; /* Giảm khoảng cách xuống dưới */
+                left: 50%; /* Căn giữa theo chiều ngang */
+                transform: translateX(-50%); /* Đảm bảo căn giữa chính xác */
+                padding: 10px 15px; /* Thay đổi padding cho nút */
+                font-size: 1rem; /* Giảm kích thước chữ cho nút */
+            }
+
+            /* Chỉnh lại kích thước logo khi màn hình nhỏ */
+            .logo {
+                max-width: 420px; /* Giảm kích thước logo khi màn hình nhỏ */
+                top: 15%; /* Đặt lại vị trí logo khi màn hình nhỏ */
+            }
+
+            /* Điều chỉnh bảng avatar */
+            .avatar-container {
+                width: 90%; /* Chiếm 90% chiều rộng màn hình */
+                height: auto; /* Để chiều cao tự động */
+                padding: 20px; /* Thêm khoảng cách xung quanh */
+            }
+
+            .avatar-content {
+                flex-direction: column; /* Đặt các phần tử trong avatar-content theo chiều dọc */
+                align-items: center; /* Căn giữa nội dung theo chiều ngang */
+            }
+
+            /* Điều chỉnh nút đóng */
+            .close-btn {
+                top: 20px; /* Cách mép trên */
+                right: 20px; /* Cách mép phải */
+                padding: 8px 15px; /* Thay đổi padding cho nút đóng */
+                font-size: 0.9rem; /* Giảm kích thước chữ cho nút */
+            }
+
+            /* Giảm kích thước của hình ảnh avatar */
+            .avatar img {
+                max-width: 150px; /* Giảm kích thước ảnh avatar khi màn hình nhỏ */
+            }
+        }
+
+        /* Điều chỉnh khi màn hình rất nhỏ như trên điện thoại */
+        @media (max-width: 480px) {
+            /* Giảm kích thước của văn bản */
+            h1 {
+                font-size: 1.8rem; /* Giảm font size của h1 */
+            }
+
+            p, .links a {
+                font-size: 1rem; /* Giảm font size của text và các link */
+            }
+
+            .logo {
+                max-width: 320px; /* Giảm logo thêm nữa */
+            }
+
+            .show-more-btn {
+                font-size: 0.9rem; /* Giảm kích thước chữ của nút "Hiện thêm" */
+            }
+
+            .close-btn {
+                top: 10px;
+                right: 10px;
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+
+            /* Thay đổi kích thước và khoảng cách các liên kết */
+            .links a {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+
+            .avatar-container {
+                width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
+            }
+        }
+        .show-more-btn {
+            position: fixed;
+            bottom: 300px;
+            left: 50%; /* Căn giữa theo chiều ngang */
+            transform: translateX(-50%); /* Đảm bảo căn giữa chính xác */
+            background-color: #000000; /* Màu nền xanh */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .avatar-container {
+            display: none; /* Ẩn ban đầu */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+            z-index: 3; /* Nằm trên video và nút mũi tên */
+            align-items: center;
+            justify-content: center; /* Căn giữa nội dung */
+            padding: 20px; /* Khoảng cách giữa nội dung và cạnh */
+            box-sizing: border-box;
+            opacity: 0; /* Bắt đầu với độ trong suốt */
+            transform: scale(0.9); /* Thu nhỏ ban đầu */
+            transition: all 0.3s ease-in-out; /* Hiệu ứng chuyển đổi */
+        }
+
+        .avatar-container.show {
+            display: flex; /* Hiển thị khi có class 'show' */
+            opacity: 1; /* Hiển thị hoàn toàn */
+            transform: scale(1); /* Phóng to về kích thước gốc */
+        }
+        .avatar-content {
+            display: flex;
+            align-items: center; /* Căn giữa nội dung theo chiều dọc */
+            max-width: 800px; /* Giới hạn chiều rộng tối đa */
+            background-color: white; /* Nền trắng cho nội dung */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        }
+
+
+        .avatar-container .avatar {
+            margin-right: 20px; /* Khoảng cách giữa avatar và nội dung */
+        }
+
+        .info-area { /* CSS cho phần nội dung */
+            text-align: left; /* Căn lề trái */
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px; /* Cách mép trên một khoảng nhỏ */
+            right: 10px; /* Cách mép phải một khoảng nhỏ */
+            background-color: #dc3545; /* Màu nền đỏ */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 5; /* Đảm bảo nút nằm trên nội dung */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Hiệu ứng đổ bóng */
+            transition: transform 0.2s ease;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.1); /* Phóng to nhẹ khi rê chuột */
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <div class="video-overlay"></div>
+		<video autoplay loop muted playsinline>
+			<source src="video.mp4" type="video/mp4">
+		</video>
+    </div>
+
+    <img class="logo" src="logo.png" alt="Biểu tượng dieannam">
+
+    <div class="main-container">
+        <h1>Chào mừng đến với dieannam!</h1>
+        <p>Dưới đây là các trang mạng xã hội của tôi:</p>
+        <div class="links">
+            <a href="https://www.instagram.com/diean.nam/" target="_blank">My Instagram</a>
+            <a href="https://www.youtube.com/@DIEANNAM177" target="_blank">My YouTube</a>
+            <a href="https://x.com/dieannam0937" target="_blank">My Twitter</a>
+        </div>
+    </div>
+
+    <button class="show-more-btn" onclick="toggleAvatar()">Hiện thêm</button>
+
+    <div class="avatar-container">
+        <div class="avatar-content">
+            <button class="close-btn" onclick="toggleAvatar()">Đóng</button>
+            <div class="avatar">
+                <img class="avatar" src="avatar.jpg" alt="dieannam">
+                <p>dieannam</p>
+            </div>
+            <div class="info-area">
+                <h2>Thông tin cá nhân</h2>
+                <p>dieannam (Còn được biết tới là Diệp Anh Nam)
+                    Nghệ sĩ Piano tự do
+                    Piano Cover Japan, Anime song
+                </p>
+                <div class="links">
+                    <a href="https://www.instagram.com/diean.nam/" target="_blank">My Instagram</a>
+                    <a href="https://www.youtube.com/@DIEANNAM177" target="_blank">My YouTube</a>
+                    <a href="https://x.com/dieannam0937" target="_blank">My Twitter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleAvatar() {
+            const avatarContainer = document.querySelector('.avatar-container');
+            if (!avatarContainer.classList.contains('show')) {
+                avatarContainer.style.display = "flex"; // Đảm bảo hiển thị flex trước khi animation bắt đầu
+                setTimeout(() => avatarContainer.classList.add('show'), 10); // Thêm class show để kích hoạt hiệu ứng
+            } else {
+                avatarContainer.classList.remove('show'); // Xóa class để kích hoạt hiệu ứng ẩn
+                setTimeout(() => (avatarContainer.style.display = "none"), 300); // Ẩn sau khi animation kết thúc
+            }
+        }
+      window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset;
+        let video = document.querySelector('video');
+        video.style.transform = `translate3d(0, ${scrollTop * 0.5}px, 0)`; // 0.5 là hệ số parallax, bạn có thể điều chỉnh
+      });
+    </script>
+</body>
+</html>
