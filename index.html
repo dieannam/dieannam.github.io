@@ -16,7 +16,7 @@
         body, html {
             height: 100%;
             overflow: hidden;
-            background: transparent; /* Xóa nền đen, để GIF hiển thị */
+            background: transparent;
         }
 
         .background {
@@ -26,10 +26,11 @@
             width: 100vw;
             height: 100vh;
             object-fit: cover;
-            transform: translate(-50%, -50%) scale(1.2); /* Phóng to để tràn viền */
-            filter: blur(10px); /* Hiệu ứng làm mờ */
-            z-index: -1; /* Đặt sau nội dung chính */
+            transform: translate(-50%, -50%) scale(1.2);
+            filter: blur(12px); /* Tăng blur để nội dung nổi bật */
+            z-index: -1;
             background: #000; /* Fallback nếu GIF không tải */
+            animation: pulse 10s ease-in-out infinite; /* Animation nhẹ */
         }
 
         .logo {
@@ -41,6 +42,7 @@
             max-width: 850px;
             max-height: 840px;
             z-index: 1;
+            animation: fadeIn 1.5s ease forwards;
         }
 
         .main-container {
@@ -57,77 +59,97 @@
         }
 
         h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            background: linear-gradient(45deg, #fff, #ccc);
+            background: linear-gradient(45deg, #fff, #a0a0a0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: slideIn 1s ease forwards;
+            animation: slideUp 1s ease forwards;
         }
 
         p {
-            font-size: 1.25rem;
-            font-weight: 400;
+            font-size: 1.3rem;
+            font-weight: 300;
             margin-bottom: 30px;
             max-width: 600px;
-            animation: slideIn 1s ease forwards 0.3s;
+            color: #e0e0e0;
+            animation: slideUp 1s ease forwards 0.2s;
             opacity: 0;
         }
 
         .links a {
             display: inline-block;
-            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 14px 30px;
             text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            padding: 12px 24px;
-            border: 2px solid #fff;
-            background: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af); /* Gradient Instagram */
+            color: #fff;
+            border: 3px solid #fff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
+            animation: fadeIn 1s ease forwards 0.4s;
+            opacity: 0;
         }
 
         .links a:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #f58529);
+        }
+
+        .show-more-btn {
+            position: fixed;
+            bottom: 80px; /* Nâng cao hơn để dễ thấy */
+            left: 50%;
+            transform: translateX(-50%);
             background: #fff;
             color: #000;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            z-index: 2;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease forwards 0.6s;
+            opacity: 0;
+        }
+
+        .show-more-btn:hover {
+            background: #e0e0e0;
+            transform: translateX(-50%) scale(1.05) translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
         }
 
         .visitor-counter {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
-            color: #fff;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 8px 16px;
+            color: #e0e0e0;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 12px;
             z-index: 2;
+            animation: fadeIn 1s ease forwards 0.8s;
+            opacity: 0;
         }
 
-        .show-more-btn {
+        .copyright {
             position: fixed;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
+            bottom: 20px;
+            left: 20px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #b0b0b0;
             z-index: 2;
-            transition: all 0.3s ease;
-        }
-
-        .show-more-btn:hover {
-            background: #ccc;
-            transform: translateX(-50%) translateY(-4px);
-            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+            animation: fadeIn 1s ease forwards 1s;
+            opacity: 0;
         }
 
         .avatar-container {
@@ -137,7 +159,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 3;
             align-items: center;
             justify-content: center;
@@ -158,9 +180,10 @@
             max-width: 900px;
             width: 100%;
             background: #fff;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             position: relative;
+            border: 1px solid #e0e0e0;
         }
 
         .avatar {
@@ -169,25 +192,41 @@
         }
 
         .avatar img {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             object-fit: cover;
+            border: 2px solid #e0e0e0;
         }
 
         .info-area h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             margin-bottom: 20px;
             color: #000;
         }
 
         .info-area p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #333;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            line-height: 1.7;
+            margin-bottom: 25px;
             animation: none;
             opacity: 1;
+        }
+
+        .info-area .links a {
+            font-size: 1.1rem;
+            padding: 12px 25px;
+            border: 2px solid #000;
+            background: transparent;
+            color: #000;
+            box-shadow: none;
+        }
+
+        .info-area .links a:hover {
+            background: #000;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
 
         .close-btn {
@@ -206,36 +245,42 @@
 
         .close-btn:hover {
             background: #333;
-            transform: translateY(-2px);
+            transform: scale(1.05);
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1.2); }
+            50% { transform: translate(-50%, -50%) scale(1.25); }
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
+            h1 { font-size: 2.5rem; }
             p, .links a, .show-more-btn { font-size: 1rem; }
             .logo { max-width: 420px; top: 15%; }
-            .avatar-content { flex-direction: column; align-items: center; }
+            .avatar-content { flex-direction: column; align-items: center; padding: 30px; }
             .avatar { margin-right: 0; margin-bottom: 20px; }
-            .avatar img { width: 150px; height: 150px; }
-            .visitor-counter { font-size: 0.9rem; padding: 6px 12px; }
+            .avatar img { width: 160px; height: 160px; }
+            .visitor-counter, .copyright { font-size: 0.8rem; padding: 5px 10px; }
+            .show-more-btn { bottom: 60px; padding: 12px 25px; }
         }
 
         @media (max-width: 480px) {
-            h1 { font-size: 1.5rem; }
+            h1 { font-size: 2rem; }
             p, .links a, .show-more-btn { font-size: 0.9rem; }
             .logo { max-width: 320px; }
-            .avatar img { width: 120px; height: 120px; }
-            .visitor-counter { font-size: 0.8rem; padding: 5px 10px; }
+            .avatar img { width: 140px; height: 140px; }
+            .visitor-counter, .copyright { font-size: 0.75rem; }
+            .show-more-btn { bottom: 50px; padding: 10px 20px; }
         }
     </style>
 </head>
@@ -255,7 +300,11 @@
     <button class="show-more-btn" onclick="toggleAvatar()">Thông tin cá nhân</button>
 
     <div class="visitor-counter">
-        Lượt truy cập: <span id="visitorCount">0</span>
+        Tổng người truy cập: <span id="visitorCount">0</span>
+    </div>
+
+    <div class="copyright">
+        © Bản quyền thuộc dieannam
     </div>
 
     <div class="avatar-container">
@@ -286,7 +335,7 @@
             }
         }
 
-        // Bộ đếm lượt truy cập dựa trên IP duy nhất
+        // Bộ đếm tổng số IP duy nhất (tổng người truy cập)
         async function updateVisitorCount() {
             try {
                 // Lấy IP của người dùng
@@ -294,25 +343,23 @@
                 const data = await response.json();
                 const userIP = data.ip;
 
-                // Lấy danh sách IP và bộ đếm từ localStorage
+                // Lấy danh sách IP từ localStorage
                 let visitedIPs = JSON.parse(localStorage.getItem('visitedIPs')) || [];
-                let visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
 
                 // Kiểm tra nếu IP chưa được ghi nhận
                 if (!visitedIPs.includes(userIP)) {
                     visitedIPs.push(userIP);
-                    visitorCount++;
                     localStorage.setItem('visitedIPs', JSON.stringify(visitedIPs));
-                    localStorage.setItem('visitorCount', visitorCount);
                 }
 
-                // Cập nhật giao diện
+                // Hiển thị tổng số IP duy nhất
+                const visitorCount = visitedIPs.length;
                 document.getElementById('visitorCount').textContent = visitorCount;
             } catch (error) {
                 console.error('Lỗi khi lấy IP hoặc cập nhật bộ đếm:', error);
-                // Fallback: hiển thị bộ đếm hiện tại mà không tăng
-                let visitorCount = localStorage.getItem('visitorCount') || 0;
-                document.getElementById('visitorCount').textContent = visitorCount;
+                // Fallback: hiển thị số IP hiện có trong localStorage
+                let visitedIPs = JSON.parse(localStorage.getItem('visitedIPs')) || [];
+                document.getElementById('visitorCount').textContent = visitedIPs.length;
             }
         }
 
