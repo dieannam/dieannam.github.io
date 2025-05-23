@@ -6,15 +6,19 @@
     <title>dieannam</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
-        body, html {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body, html {
             height: 100%;
             overflow: hidden;
-            display: flex; /* Căn ngang nội dung */
-            align-items: center; /* Căn giữa theo chiều dọc */
-            justify-content: center; /* Căn giữa theo chiều ngang */
+            background: #000;
         }
+
         video {
             position: fixed;
             top: 0;
@@ -22,308 +26,298 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -1; /* Đưa video xuống phía sau nội dung */
+            z-index: -1;
+            filter: brightness(0.7);
         }
+
         .logo {
             position: fixed;
             top: 25%;
-            left: 54%; /* Chỉnh lại để căn giữa theo chiều ngang */
-            transform: translate(-50%, -50%); /* Căn giữa chính xác */
+            left: 54%;
+            transform: translate(-50%, -50%);
             width: auto;
-            max-width: 850px; /* Giới hạn kích thước tối đa của logo */
-            max-height: 840px; /* Giới hạn chiều cao tối đa của logo */
+            max-width: 850px;
+            max-height: 840px;
             z-index: 1;
         }
+
         .main-container {
+            position: relative;
             display: flex;
-            flex-direction: column; /* Sắp xếp theo cột */
+            flex-direction: column;
             align-items: center;
-            text-align: center;
-            color: white;
-            z-index: 1;  /* Đưa nội dung lên trên video */
+            justify-content: center;
+            height: 100%;
+            color: #fff;
+            z-index: 2;
             padding: 20px;
-        }
-        .avatar {
-            flex: 0 0 auto; /* Giữ kích thước gốc của ảnh */
             text-align: center;
-            margin-right: 20px;
-        }
-        .avatar img {
-            max-width: 250px; /* Đảm bảo không vượt quá kích thước tối đa */
-            height: auto; /* Tự động điều chỉnh theo tỷ lệ */
-        }
-        .avatar p {
-            margin-top: 10px;
-            font-size: 1rem;
-        }
-        .content {
-            text-align: center; /* Căn chữ sang trái */
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            animation: fadeInUp 1s ease forwards; /* Hiệu ứng chữ xuất hiện từ dưới lên */
         }
 
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slideIn 1s ease forwards;
+        }
 
         p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-             animation: fadeInUp 1s ease forwards; /* Hiệu ứng chữ xuất hiện từ dưới lên */
-             animation-delay: 0.5s; /* Chậm hơn so với h1 */
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+            max-width: 600px;
+            animation: slideIn 1s ease forwards 0.3s;
+            opacity: 0;
         }
-        .links {
-            margin-top: 20px;
-        }
+
         .links a {
-            color: white;
-            text-decoration: none;
-            margin: 10px 0; /* Thay đổi khoảng cách giữa các liên kết */
-            font-size: 1.2rem;
             display: inline-block;
-            padding: 10px 20px; /* Thêm padding cho liên kết */
-            border: 2px solid white; /* Thêm border cho liên kết */
-            border-radius: 5px; /* Bo tròn góc liên kết */
-            transition: all 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
-            backdrop-filter: blur(10px);
-
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 12px 24px;
+            border: 2px solid #fff;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
-
 
         .links a:hover {
-            transform: scale(1.1); /* Phóng to khi hover */
-            box-shadow: 0px 0px 20px rgba(255,255,255,0.8); /* Đổ bóng sáng hơn khi hover */
-        }
-        @keyframes fadeInUp {
-             0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* Media query cho responsive */
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            p, .links a { font-size: 1rem; }      
+            background: #fff;
+            color: #000;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
         }
 
-        /* Media query cho responsive cho điện thoại */
-        @media (max-width: 768px) {
-            /* Chỉnh lại vị trí và kích thước của nút "Hiện thêm" */
-            .show-more-btn {
-                bottom: 30px; /* Giảm khoảng cách xuống dưới */
-                left: 50%; /* Căn giữa theo chiều ngang */
-                transform: translateX(-50%); /* Đảm bảo căn giữa chính xác */
-                padding: 10px 15px; /* Thay đổi padding cho nút */
-                font-size: 1rem; /* Giảm kích thước chữ cho nút */
-            }
-
-            /* Chỉnh lại kích thước logo khi màn hình nhỏ */
-            .logo {
-                max-width: 420px; /* Giảm kích thước logo khi màn hình nhỏ */
-                top: 15%; /* Đặt lại vị trí logo khi màn hình nhỏ */
-            }
-
-            /* Điều chỉnh bảng avatar */
-            .avatar-container {
-                width: 90%; /* Chiếm 90% chiều rộng màn hình */
-                height: auto; /* Để chiều cao tự động */
-                padding: 20px; /* Thêm khoảng cách xung quanh */
-            }
-
-            .avatar-content {
-                flex-direction: column; /* Đặt các phần tử trong avatar-content theo chiều dọc */
-                align-items: center; /* Căn giữa nội dung theo chiều ngang */
-            }
-
-            /* Điều chỉnh nút đóng */
-            .close-btn {
-                top: 20px; /* Cách mép trên */
-                right: 20px; /* Cách mép phải */
-                padding: 8px 15px; /* Thay đổi padding cho nút đóng */
-                font-size: 0.9rem; /* Giảm kích thước chữ cho nút */
-            }
-
-            /* Giảm kích thước của hình ảnh avatar */
-            .avatar img {
-                max-width: 150px; /* Giảm kích thước ảnh avatar khi màn hình nhỏ */
-            }
+        .visitor-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 16px;
+            z-index: 2;
         }
 
-        /* Điều chỉnh khi màn hình rất nhỏ như trên điện thoại */
-        @media (max-width: 480px) {
-            /* Giảm kích thước của văn bản */
-            h1 {
-                font-size: 1.8rem; /* Giảm font size của h1 */
-            }
-
-            p, .links a {
-                font-size: 1rem; /* Giảm font size của text và các link */
-            }
-
-            .logo {
-                max-width: 320px; /* Giảm logo thêm nữa */
-            }
-
-            .show-more-btn {
-                font-size: 0.9rem; /* Giảm kích thước chữ của nút "Hiện thêm" */
-            }
-
-            .close-btn {
-                top: 10px;
-                right: 10px;
-                font-size: 0.8rem;
-                padding: 5px 10px;
-            }
-
-            /* Thay đổi kích thước và khoảng cách các liên kết */
-            .links a {
-                font-size: 1rem;
-                padding: 8px 15px;
-            }
-
-            .avatar-container {
-                width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
-            }
-        }
         .show-more-btn {
-	    position: fixed;
-	    bottom: 50px; /* Khoảng cách từ đáy màn hình */
-	    left: 50%; /* Căn giữa theo chiều ngang */
-	    transform: translateX(-50%); /* Căn giữa chính xác */
-	    background-color: #000000; /* Màu nền */
-	    color: white;
-	    border: none;
-	    padding: 10px 20px;
-	    border-radius: 5px;
-	    cursor: pointer;
-	    z-index: 2;
-	    transition: transform 0.3s ease;
-	}
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .show-more-btn:hover {
+            background: #ccc;
+            transform: translateX(-50%) translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
 
         .avatar-container {
-            display: none; /* Ẩn ban đầu */
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
-            z-index: 3; /* Nằm trên video và nút mũi tên */
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3;
             align-items: center;
-            justify-content: center; /* Căn giữa nội dung */
-            padding: 20px; /* Khoảng cách giữa nội dung và cạnh */
-            box-sizing: border-box;
-            opacity: 0; /* Bắt đầu với độ trong suốt */
-            transform: scale(0.9); /* Thu nhỏ ban đầu */
-            transition: all 0.3s ease-in-out; /* Hiệu ứng chuyển đổi */
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.3s ease;
         }
 
         .avatar-container.show {
-            display: flex; /* Hiển thị khi có class 'show' */
-            opacity: 1; /* Hiển thị hoàn toàn */
-            transform: scale(1); /* Phóng to về kích thước gốc */
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
         }
+
         .avatar-content {
             display: flex;
-            align-items: center; /* Căn giữa nội dung theo chiều dọc */
-            max-width: 800px; /* Giới hạn chiều rộng tối đa */
-            background-color: white; /* Nền trắng cho nội dung */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            width: 100%;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
 
-
-        .avatar-container .avatar {
-            margin-right: 20px; /* Khoảng cách giữa avatar và nội dung */
+        .avatar {
+            flex: 0 0 auto;
+            margin-right: 30px;
         }
 
-        .info-area { /* CSS cho phần nội dung */
-            text-align: left; /* Căn lề trái */
+        .avatar img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
         }
+
+        .info-area h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .info-area p {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            animation: none;
+            opacity: 1;
+        }
+
+        .instagram-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .instagram-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .instagram-info p {
+            font-size: 1rem;
+            color: #333;
+        }
+
         .close-btn {
             position: absolute;
-            top: 10px; /* Cách mép trên một khoảng nhỏ */
-            right: 10px; /* Cách mép phải một khoảng nhỏ */
-            background-color: #dc3545; /* Màu nền đỏ */
-            color: white;
+            top: 15px;
+            right: 15px;
+            background: #000;
+            color: #fff;
             border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            z-index: 5; /* Đảm bảo nút nằm trên nội dung */
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Hiệu ứng đổ bóng */
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .close-btn:hover {
-            transform: scale(1.1); /* Phóng to nhẹ khi rê chuột */
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            p, .links a, .show-more-btn { font-size: 1rem; }
+            .logo { max-width: 420px; top: 15%; }
+            .avatar-content { flex-direction: column; align-items: center; }
+            .avatar { margin-right: 0; margin-bottom: 20px; }
+            .avatar img { width: 150px; height: 150px; }
+            .visitor-counter { font-size: 0.9rem; padding: 6px 12px; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.5rem; }
+            p, .links a, .show-more-btn { font-size: 0.9rem; }
+            .logo { max-width: 320px; }
+            .avatar img { width: 120px; height: 120px; }
+            .visitor-counter { font-size: 0.8rem; padding: 5px 10px; }
         }
     </style>
 </head>
 <body>
-    <div class="video-container">
-        <div class="video-overlay"></div>
-		<video autoplay loop muted playsinline>
-			<source src="video.webm" type="video/webm">
-		</video>
-    </div>
+    <video autoplay loop muted playsinline>
+        <source src="video.webm" type="video/webm">
+    </video>
 
     <img class="logo" src="logo.png" alt="Biểu tượng dieannam">
 
     <div class="main-container">
         <h1>Welcome to dieannam's website</h1>
-        <p>Personal social networking sites:</p>
+        <p>Personal social networking site:</p>
         <div class="links">
-            <a href="https://www.instagram.com/diean.nam/" target="_blank">My Instagram</a>
-            <a href="https://www.youtube.com/@DIEANNAM177" target="_blank">My YouTube</a>
-            <a href="https://x.com/dieannam0937" target="_blank">My Twitter</a>
+            <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
         </div>
     </div>
 
-    <button class="show-more-btn" onclick="toggleAvatar()">Infomation personal</button>
+    <button class="show-more-btn" onclick="toggleAvatar()">Personal Information</button>
+
+    <div class="visitor-counter">
+        Visitors: <span id="visitorCount">0</span>
+    </div>
 
     <div class="avatar-container">
         <div class="avatar-content">
             <button class="close-btn" onclick="toggleAvatar()">Close</button>
             <div class="avatar">
-                <img class="avatar" src="avatar.jpg" alt="dieannam">
+                <img src="avatar.jpg" alt="dieannam">
             </div>
             <div class="info-area">
-                <h2>Dieannam's personal information</h2>
-                <p> Dieannam, một người chơi Piano tự do với chuyên đề là Piano Cover Anime Songs, Japanese Songs, etc.
-			Thẳng ra chỉ là một thằng dở hơi chơi Piano vào buổi sáng, buổi tối ngồi lì ra code ba cái xàm xàm như cái trang web này.
-			Cảm ơn vì đã xem !
-                </p>
+                <h2>Dieannam's Personal Information</h2>
+                <div class="instagram-info">
+                    <img src="instagram-avatar-placeholder.jpg" alt="Instagram Avatar">
+                    <p><strong>diean.nam</strong><br>Followers: <span id="igFollowers">1234</span><br>Following: <span id="igFollowing">567</span></p>
+                </div>
+                <p>Dieannam, một người chơi Piano tự do với chuyên đề là Piano Cover Anime Songs, Japanese Songs, etc. Thẳng ra chỉ là một thằng dở hơi chơi Piano vào buổi sáng, buổi tối ngồi lì ra code ba cái xàm xàm như cái trang web này. Cảm ơn vì đã xem!</p>
                 <div class="links">
-                    <a href="https://www.instagram.com/diean.nam/" target="_blank">My Instagram</a>
-                    <a href="https://www.youtube.com/@DIEANNAM177" target="_blank">My YouTube</a>
-                    <a href="https://x.com/dieannam0937" target="_blank">My Twitter</a>
+                    <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
         function toggleAvatar() {
             const avatarContainer = document.querySelector('.avatar-container');
             if (!avatarContainer.classList.contains('show')) {
-                avatarContainer.style.display = "flex"; // Đảm bảo hiển thị flex trước khi animation bắt đầu
-                setTimeout(() => avatarContainer.classList.add('show'), 10); // Thêm class show để kích hoạt hiệu ứng
+                avatarContainer.style.display = 'flex';
+                setTimeout(() => avatarContainer.classList.add('show'), 10);
             } else {
-                avatarContainer.classList.remove('show'); // Xóa class để kích hoạt hiệu ứng ẩn
-                setTimeout(() => (avatarContainer.style.display = "none"), 300); // Ẩn sau khi animation kết thúc
+                avatarContainer.classList.remove('show');
+                setTimeout(() => avatarContainer.style.display = 'none', 300);
             }
         }
-	// Đoạn mã cuộn video không cần thiết làm ảnh hưởng đến nút
-	window.addEventListener('scroll', function() {
-	    let scrollTop = window.pageYOffset;
-	    let video = document.querySelector('video');
-	    video.style.transform = `translate3d(0, ${scrollTop * 0.5}px, 0)`; // Điều chỉnh hiệu ứng parallax cho video
-	});
+
+        // Visitor counter
+        let visitorCount = localStorage.getItem('visitorCount') || 0;
+        visitorCount++;
+        localStorage.setItem('visitorCount', visitorCount);
+        document.getElementById('visitorCount').textContent = visitorCount;
+
+        // Placeholder for Instagram data (requires API for real data)
+        // You can replace these with actual API calls
+        document.getElementById('igFollowers').textContent = '1234'; // Replace with real data
+        document.getElementById('igFollowing').textContent = '567';  // Replace with real data
     </script>
 </body>
 </html>
