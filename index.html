@@ -16,7 +16,7 @@
         body, html {
             height: 100%;
             overflow: hidden;
-            background: #000;
+            background: #000; /* Fallback nếu GIF không tải */
         }
 
         .background {
@@ -181,9 +181,6 @@
         }
 
         .info-area p {
-           .BotActionWrapper {
-                margin-bottom: 0px;
-            }
             font-size: 1.1rem;
             color: #333;
             line-height: 1.6;
@@ -242,7 +239,7 @@
     </style>
 </head>
 <body>
-    <img class="background" src="blue.gif" alt="Background">
+    <img class="background" src="blue.gif" alt="Background" onerror="console.error('Lỗi: Không thể tải blue.gif. Kiểm tra đường dẫn hoặc tệp trên GitHub.')">
 
     <img class="logo" src="logo.png" alt="Biểu tượng dieannam">
 
@@ -268,7 +265,7 @@
             </div>
             <div class="info-area">
                 <h2>Thông tin cá nhân của Dieannam</h2>
-                <p>Dieannam, một người chơi Piano tự do với chuyên đề là Piano Cover Anime Songs, Japanese Songs, etc. Thẳng ra chỉ là một thằng dở hơi chơi Piano vào buổi sáng, buổi tối ngồi lì ra code ba cái xàm xàm như cái trang web này. Cảm ơn vì đã xem!</p>
+                <p>Dieannam, là một người chơi piano và là một coder. Cảm ơn vì đã xem!</p>
                 <div class="links">
                     <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
                 </div>
