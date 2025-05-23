@@ -16,7 +16,7 @@
         body, html {
             height: 100%;
             overflow: hidden;
-            background: #000; /* Fallback nếu GIF không tải */
+            background: transparent; /* Xóa nền đen, để GIF hiển thị */
         }
 
         .background {
@@ -28,7 +28,8 @@
             object-fit: cover;
             transform: translate(-50%, -50%) scale(1.2); /* Phóng to để tràn viền */
             filter: blur(10px); /* Hiệu ứng làm mờ */
-            z-index: -1;
+            z-index: -1; /* Đặt sau nội dung chính */
+            background: #000; /* Fallback nếu GIF không tải */
         }
 
         .logo {
@@ -265,7 +266,7 @@
             </div>
             <div class="info-area">
                 <h2>Thông tin cá nhân của Dieannam</h2>
-                <p>Dieannam, là một người chơi piano và là một coder. Cảm ơn vì đã xem!</p>
+                <p>Dieannam, một người chơi Piano tự do với chuyên đề là Piano Cover Anime Songs, Japanese Songs, etc. Thẳng ra chỉ là một thằng dở hơi chơi Piano vào buổi sáng, buổi tối ngồi lì ra code ba cái xàm xàm như cái trang web này. Cảm ơn vì đã xem!</p>
                 <div class="links">
                     <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
                 </div>
