@@ -181,6 +181,9 @@
         }
 
         .info-area p {
+           .BotActionWrapper {
+                margin-bottom: 0px;
+            }
             font-size: 1.1rem;
             color: #333;
             line-height: 1.6;
@@ -285,7 +288,7 @@
             }
         }
 
-        // Bộ đếm lượt truy cập dựa trên IP
+        // Bộ đếm lượt truy cập dựa trên IP duy nhất
         async function updateVisitorCount() {
             try {
                 // Lấy IP của người dùng
@@ -293,11 +296,11 @@
                 const data = await response.json();
                 const userIP = data.ip;
 
-                // Lấy danh sách IP đã truy cập từ localStorage
+                // Lấy danh sách IP và bộ đếm từ localStorage
                 let visitedIPs = JSON.parse(localStorage.getItem('visitedIPs')) || [];
                 let visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
 
-                // Kiểm tra xem IP đã truy cập trước đó chưa
+                // Kiểm tra nếu IP chưa được ghi nhận
                 if (!visitedIPs.includes(userIP)) {
                     visitedIPs.push(userIP);
                     visitorCount++;
@@ -309,10 +312,8 @@
                 document.getElementById('visitorCount').textContent = visitorCount;
             } catch (error) {
                 console.error('Lỗi khi lấy IP hoặc cập nhật bộ đếm:', error);
-                // Fallback: sử dụng bộ đếm đơn giản nếu API lỗi
+                // Fallback: hiển thị bộ đếm hiện tại mà không tăng
                 let visitorCount = localStorage.getItem('visitorCount') || 0;
-                visitorCount++;
-                localStorage.setItem('visitorCount', visitorCount);
                 document.getElementById('visitorCount').textContent = visitorCount;
             }
         }
