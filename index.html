@@ -15,19 +15,20 @@
 
         body, html {
             height: 100%;
-            overflow: hidden;
+            overflow Ascoverflow: hidden;
             background: #000;
         }
 
-        video {
+        .background {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
             object-fit: cover;
+            transform: translate(-50%, -50%) scale(1.2); /* Phóng to để tràn viền */
+            filter: blur(10px); /* Hiệu ứng làm mờ */
             z-index: -1;
-            filter: brightness(0.7);
         }
 
         .logo {
@@ -188,24 +189,6 @@
             opacity: 1;
         }
 
-        .instagram-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .instagram-info img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-        }
-
-        .instagram-info p {
-            font-size: 1rem;
-            color: #333;
-        }
-
         .close-btn {
             position: absolute;
             top: 15px;
@@ -256,9 +239,7 @@
     </style>
 </head>
 <body>
-    <video autoplay loop muted playsinline>
-        <source src="video.webm" type="video/webm">
-    </video>
+    <img class="background" src="background.gif" alt="Background">
 
     <img class="logo" src="logo.png" alt="Biểu tượng dieannam">
 
@@ -270,24 +251,20 @@
         </div>
     </div>
 
-    <button class="show-more-btn" onclick="toggleAvatar()">Personal Information</button>
+    <button class="show-more-btn" onclick="toggleAvatar()">Thông tin cá nhân</button>
 
     <div class="visitor-counter">
-        Visitors: <span id="visitorCount">0</span>
+        Lượt truy cập: <span id="visitorCount">0</span>
     </div>
 
     <div class="avatar-container">
         <div class="avatar-content">
-            <button class="close-btn" onclick="toggleAvatar()">Close</button>
+            <button class="close-btn" onclick="toggleAvatar()">Đóng</button>
             <div class="avatar">
                 <img src="avatar.jpg" alt="dieannam">
             </div>
             <div class="info-area">
-                <h2>Dieannam's Personal Information</h2>
-                <div class="instagram-info">
-                    <img src="instagram-avatar-placeholder.jpg" alt="Instagram Avatar">
-                    <p><strong>diean.nam</strong><br>Followers: <span id="igFollowers">1234</span><br>Following: <span id="igFollowing">567</span></p>
-                </div>
+                <h2>Thông tin cá nhân của Dieannam</h2>
                 <p>Dieannam, một người chơi Piano tự do với chuyên đề là Piano Cover Anime Songs, Japanese Songs, etc. Thẳng ra chỉ là một thằng dở hơi chơi Piano vào buổi sáng, buổi tối ngồi lì ra code ba cái xàm xàm như cái trang web này. Cảm ơn vì đã xem!</p>
                 <div class="links">
                     <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
@@ -308,16 +285,11 @@
             }
         }
 
-        // Visitor counter
+        // Bộ đếm lượt truy cập
         let visitorCount = localStorage.getItem('visitorCount') || 0;
         visitorCount++;
         localStorage.setItem('visitorCount', visitorCount);
         document.getElementById('visitorCount').textContent = visitorCount;
-
-        // Placeholder for Instagram data (requires API for real data)
-        // You can replace these with actual API calls
-        document.getElementById('igFollowers').textContent = '1234'; // Replace with real data
-        document.getElementById('igFollowing').textContent = '567';  // Replace with real data
     </script>
 </body>
 </html>
