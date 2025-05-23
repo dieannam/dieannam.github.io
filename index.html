@@ -27,10 +27,10 @@
             height: 100vh;
             object-fit: cover;
             transform: translate(-50%, -50%) scale(1.2);
-            filter: blur(12px); /* Tăng blur để nội dung nổi bật */
+            filter: blur(12px);
             z-index: -1;
-            background: #000; /* Fallback nếu GIF không tải */
-            animation: pulse 10s ease-in-out infinite; /* Animation nhẹ */
+            background: #000;
+            animation: pulse 10s ease-in-out infinite;
         }
 
         .logo {
@@ -59,10 +59,10 @@
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 900;
-            letter-spacing: -0.03em;
-            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+            margin-bottom: 25px;
             text-transform: uppercase;
             background: linear-gradient(45deg, #fff, #a0a0a0);
             -webkit-background-clip: text;
@@ -71,50 +71,51 @@
         }
 
         p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 300;
-            margin-bottom: 30px;
-            max-width: 600px;
+            margin-bottom: 40px;
+            max-width: 500px;
             color: #e0e0e0;
+            line-height: 1.5;
             animation: slideUp 1s ease forwards 0.2s;
             opacity: 0;
         }
 
         .links a {
             display: inline-block;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            padding: 14px 30px;
+            padding: 10px 25px;
             text-decoration: none;
-            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af); /* Gradient Instagram */
+            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
             color: #fff;
-            border: 3px solid #fff;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
             animation: fadeIn 1s ease forwards 0.4s;
             opacity: 0;
         }
 
         .links a:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.6);
             background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #f58529);
         }
 
         .show-more-btn {
             position: fixed;
-            bottom: 80px; /* Nâng cao hơn để dễ thấy */
+            bottom: 70px;
             left: 50%;
             transform: translateX(-50%);
             background: #fff;
             color: #000;
             border: none;
-            padding: 15px 35px;
-            font-size: 1.2rem;
-            font-weight: 700;
+            padding: 10px 28px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             z-index: 2;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
             animation: fadeIn 1s ease forwards 0.6s;
             opacity: 0;
@@ -122,33 +123,19 @@
 
         .show-more-btn:hover {
             background: #e0e0e0;
-            transform: translateX(-50%) scale(1.05) translateY(-3px);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
-        }
-
-        .visitor-counter {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #e0e0e0;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 6px 12px;
-            z-index: 2;
-            animation: fadeIn 1s ease forwards 0.8s;
-            opacity: 0;
+            transform: translateX(-50%) scale(1.05) translateY(-2px);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.6);
         }
 
         .copyright {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 400;
             color: #b0b0b0;
             z-index: 2;
-            animation: fadeIn 1s ease forwards 1s;
+            animation: fadeIn 1s ease forwards 0.8s;
             opacity: 0;
         }
 
@@ -159,85 +146,129 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0);
             z-index: 3;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: all 0.3s ease;
+            transition: background 0.5s ease;
         }
 
         .avatar-container.show {
             display: flex;
-            opacity: 1;
-            transform: scale(1);
+            background: rgba(0, 0, 0, 0.85);
         }
 
         .avatar-content {
-            display: flex;
-            max-width: 900px;
-            width: 100%;
-            background: #fff;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             position: relative;
-            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            max-width: 650px;
+            width: 100%;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.9) translateY(40px);
+            transition: all 0.5s ease;
+        }
+
+        .avatar-container.show .avatar-content {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .popup-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(15px); /* Tăng blur để chữ nổi bật */
+            z-index: -1;
+        }
+
+        .popup-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Lớp phủ tối để tăng tương phản */
+            z-index: -1;
         }
 
         .avatar {
-            flex: 0 0 auto;
-            margin-right: 30px;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         .avatar img {
-            width: 220px;
-            height: 220px;
+            width: 140px;
+            height: 140px;
             object-fit: cover;
-            border: 2px solid #e0e0e0;
+            object-position: center;
+            animation: fadeIn 1s ease forwards 0.2s;
+            opacity: 0;
+        }
+
+        .info-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         .info-area h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #000;
+            font-size: 1.7rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Bóng chữ để nổi bật */
+            animation: fadeIn 1s ease forwards 0.4s;
+            opacity: 0;
         }
 
         .info-area p {
-            font-size: 1.15rem;
-            color: #333;
-            line-height: 1.7;
-            margin-bottom: 25px;
-            animation: none;
-            opacity: 1;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: #fff; /* Đổi thành trắng để tăng tương phản */
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            animation: fadeIn 1s ease forwards 0.6s;
+            opacity: 0;
         }
 
         .info-area .links a {
-            font-size: 1.1rem;
-            padding: 12px 25px;
-            border: 2px solid #000;
-            background: transparent;
-            color: #000;
-            box-shadow: none;
+            font-size: 0.9rem;
+            padding: 8px 20px;
+            border: 2px solid #fff;
+            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+            color: #fff;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+            animation: fadeIn 1s ease forwards 0.8s;
+            opacity: 0;
         }
 
         .info-area .links a:hover {
-            background: #000;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #f58529);
         }
 
         .close-btn {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 10px;
+            right: 10px;
             background: #000;
             color: #fff;
             border: none;
-            padding: 8px 16px;
-            font-size: 1rem;
+            padding: 6px 14px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -264,30 +295,33 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            p, .links a, .show-more-btn { font-size: 1rem; }
+            h1 { font-size: 2.3rem; }
+            p, .links a, .show-more-btn { font-size: 0.95rem; }
             .logo { max-width: 420px; top: 15%; }
-            .avatar-content { flex-direction: column; align-items: center; padding: 30px; }
-            .avatar { margin-right: 0; margin-bottom: 20px; }
-            .avatar img { width: 160px; height: 160px; }
-            .visitor-counter, .copyright { font-size: 0.8rem; padding: 5px 10px; }
-            .show-more-btn { bottom: 60px; padding: 12px 25px; }
+            .avatar-content { padding: 20px; }
+            .avatar img { width: 120px; height: 120px; }
+            .copyright { font-size: 0.7rem; }
+            .show-more-btn { bottom: 60px; padding: 10px 25px; }
+            .info-area h2 { font-size: 1.5rem; }
+            .info-area p { font-size: 0.9rem; }
         }
 
         @media (max-width: 480px) {
-            h1 { font-size: 2rem; }
-            p, .links a, .show-more-btn { font-size: 0.9rem; }
+            h1 { font-size: 1.8rem; }
+            p, .links a, .show-more-btn { font-size: 0.85rem; }
             .logo { max-width: 320px; }
-            .avatar img { width: 140px; height: 140px; }
-            .visitor-counter, .copyright { font-size: 0.75rem; }
-            .show-more-btn { bottom: 50px; padding: 10px 20px; }
+            .avatar img { width: 100px; height: 100px; }
+            .copyright { font-size: 0.65rem; }
+            .show-more-btn { bottom: 50px; padding: 8px 20px; }
+            .info-area h2 { font-size: 1.3rem; }
+            .info-area p { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
-    <img class="background" src="blue.gif" alt="Background" onerror="console.error('Lỗi: Không thể tải blue.gif. Kiểm tra đường dẫn hoặc tệp trên GitHub.')">
+    <img class="background" src="https://cdn.discordapp.com/attachments/1375511306500702288/1375511351119843389/blue.gif?ex=6831f445&is=6830a2c5&hm=ac00df75fe4189151b785afc33f3a43aebdd270755aedf844eab74ff47ff21c7&" alt="Background" onerror="console.error('Lỗi: Không thể tải hình nền. Kiểm tra URL.')">
 
-    <img class="logo" src="logo.png" alt="Biểu tượng dieannam">
+    <img class="logo" src="https://cdn.discordapp.com/attachments/1375511306500702288/1375512163778560204/logo.png?ex=6831f507&is=6830a387&hm=a788fe3307aabeb75d79de635db3816a8b83d59a858e2d8a4fbdc23cf7d25367&" alt="Biểu tượng dieannam">
 
     <div class="main-container">
         <h1>Welcome to dieannam's website</h1>
@@ -299,23 +333,21 @@
 
     <button class="show-more-btn" onclick="toggleAvatar()">Thông tin cá nhân</button>
 
-    <div class="visitor-counter">
-        Tổng người truy cập: <span id="visitorCount">0</span>
-    </div>
-
     <div class="copyright">
         © Bản quyền thuộc dieannam
     </div>
 
     <div class="avatar-container">
         <div class="avatar-content">
+            <img class="popup-background" src="https://cdn.discordapp.com/attachments/1375511306500702288/1375511782440960152/IMG_20250428_1659552.png?ex=6831f4ac&is=6830a32c&hm=b43dbcff08f2d20ec0eef2c46094b940cab575d91bdb3678545bb7bbaf6c3607&" alt="Popup Background">
+            <div class="popup-overlay"></div>
             <button class="close-btn" onclick="toggleAvatar()">Đóng</button>
             <div class="avatar">
-                <img src="avatar.jpg" alt="dieannam">
+                <img src="https://cdn.discordapp.com/attachments/1375511306500702288/1375512348995092621/avatar.jpg?ex=6831f533&is=6830a3b3&hm=85954fe6153fbd0c350eed2b8c0ba64e1bfff48bee059ceb02e2e2f8059a1af4&" alt="dieannam">
             </div>
             <div class="info-area">
-                <h2>Thông tin cá nhân của Dieannam</h2>
-                <p>Dieannam, một người chơi Piano tự do với chuyên đề là Piano Cover Anime Songs, Japanese Songs, etc. Thẳng ra chỉ là một thằng dở hơi chơi Piano vào buổi sáng, buổi tối ngồi lì ra code ba cái xàm xàm như cái trang web này. Cảm ơn vì đã xem!</p>
+                <h2>Thông tin cá nhân</h2>
+                <p>Dieannam, là một người chơi piano tự do và cũng là một coder tự do, cảm ơn vì đã ghé xem !!!</p>
                 <div class="links">
                     <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
                 </div>
@@ -331,40 +363,9 @@
                 setTimeout(() => avatarContainer.classList.add('show'), 10);
             } else {
                 avatarContainer.classList.remove('show');
-                setTimeout(() => avatarContainer.style.display = 'none', 300);
+                setTimeout(() => avatarContainer.style.display = 'none', 500);
             }
         }
-
-        // Bộ đếm tổng số IP duy nhất (tổng người truy cập)
-        async function updateVisitorCount() {
-            try {
-                // Lấy IP của người dùng
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                const userIP = data.ip;
-
-                // Lấy danh sách IP từ localStorage
-                let visitedIPs = JSON.parse(localStorage.getItem('visitedIPs')) || [];
-
-                // Kiểm tra nếu IP chưa được ghi nhận
-                if (!visitedIPs.includes(userIP)) {
-                    visitedIPs.push(userIP);
-                    localStorage.setItem('visitedIPs', JSON.stringify(visitedIPs));
-                }
-
-                // Hiển thị tổng số IP duy nhất
-                const visitorCount = visitedIPs.length;
-                document.getElementById('visitorCount').textContent = visitorCount;
-            } catch (error) {
-                console.error('Lỗi khi lấy IP hoặc cập nhật bộ đếm:', error);
-                // Fallback: hiển thị số IP hiện có trong localStorage
-                let visitedIPs = JSON.parse(localStorage.getItem('visitedIPs')) || [];
-                document.getElementById('visitorCount').textContent = visitedIPs.length;
-            }
-        }
-
-        // Gọi hàm cập nhật bộ đếm khi trang tải
-        updateVisitorCount();
     </script>
 </body>
 </html>
