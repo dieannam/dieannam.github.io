@@ -186,7 +186,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: blur(15px); /* Tăng blur để chữ nổi bật */
+            filter: blur(15px);
             z-index: -1;
         }
 
@@ -196,7 +196,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Lớp phủ tối để tăng tương phản */
+            background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
 
@@ -227,7 +227,7 @@
             font-weight: 800;
             margin-bottom: 10px;
             color: #fff;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Bóng chữ để nổi bật */
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
             animation: fadeIn 1s ease forwards 0.4s;
             opacity: 0;
         }
@@ -235,7 +235,7 @@
         .info-area p {
             font-size: 0.95rem;
             font-weight: 400;
-            color: #fff; /* Đổi thành trắng để tăng tương phản */
+            color: #fff;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
             line-height: 1.6;
             margin-bottom: 15px;
@@ -319,9 +319,9 @@
     </style>
 </head>
 <body>
-    <img class="background" src="https://cdn.discordapp.com/attachments/1375511306500702288/1375511351119843389/blue.gif?ex=6831f445&is=6830a2c5&hm=ac00df75fe4189151b785afc33f3a43aebdd270755aedf844eab74ff47ff21c7&" alt="Background" onerror="console.error('Lỗi: Không thể tải hình nền. Kiểm tra URL.')">
+    <img class="background" src="blue.gif" alt="Background" onerror="console.error('Lỗi: Không thể tải blue.gif. Kiểm tra tệp trong thư mục gốc.')">
 
-    <img class="logo" src="https://cdn.discordapp.com/attachments/1375511306500702288/1375512163778560204/logo.png?ex=6831f507&is=6830a387&hm=a788fe3307aabeb75d79de635db3816a8b83d59a858e2d8a4fbdc23cf7d25367&" alt="Biểu tượng dieannam">
+    <img class="logo" src="logo.png" alt="Biểu tượng dieannam">
 
     <div class="main-container">
         <h1>Welcome to dieannam's website</h1>
@@ -339,11 +339,11 @@
 
     <div class="avatar-container">
         <div class="avatar-content">
-            <img class="popup-background" src="https://cdn.discordapp.com/attachments/1375511306500702288/1375511782440960152/IMG_20250428_1659552.png?ex=6831f4ac&is=6830a32c&hm=b43dbcff08f2d20ec0eef2c46094b940cab575d91bdb3678545bb7bbaf6c3607&" alt="Popup Background">
+            <img class="popup-background" src="popup_bg.png" alt="Popup Background">
             <div class="popup-overlay"></div>
             <button class="close-btn" onclick="toggleAvatar()">Đóng</button>
             <div class="avatar">
-                <img src="https://cdn.discordapp.com/attachments/1375511306500702288/1375512348995092621/avatar.jpg?ex=6831f533&is=6830a3b3&hm=85954fe6153fbd0c350eed2b8c0ba64e1bfff48bee059ceb02e2e2f8059a1af4&" alt="dieannam">
+                <img src="avatar.jpg" alt="dieannam">
             </div>
             <div class="info-area">
                 <h2>Thông tin cá nhân</h2>
