@@ -210,7 +210,6 @@
             height: 140px;
             object-fit: cover;
             object-position: center;
-            border-radius: 50%;
             animation: fadeIn 1s ease forwards 0.2s;
             opacity: 0;
         }
@@ -280,6 +279,89 @@
             transform: scale(1.05);
         }
 
+        /* CSS cho khung Discord Profile */
+        .discord-profile {
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            animation: slideUp 1s ease forwards 0.6s;
+            opacity: 0;
+        }
+
+        .discord-profile .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .discord-profile .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .discord-profile .avatar img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            margin-bottom: 10px;
+        }
+
+        .discord-profile h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .discord-profile .global-name {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .discord-profile .discord-id {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .discord-profile .created-at {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .discord-profile .badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .discord-profile .badges span {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            background: #333;
+            border-radius: 12px;
+            color: #fff;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -305,6 +387,9 @@
             .show-more-btn { bottom: 60px; padding: 10px 25px; }
             .info-area h2 { font-size: 1.5rem; }
             .info-area p { font-size: 0.9rem; }
+            .discord-profile { max-width: 350px; padding: 15px; }
+            .discord-profile h3 { font-size: 1.2rem; }
+            .discord-profile .global-name { font-size: 0.9rem; }
         }
 
         @media (max-width: 480px) {
@@ -316,6 +401,10 @@
             .show-more-btn { bottom: 50px; padding: 8px 20px; }
             .info-area h2 { font-size: 1.3rem; }
             .info-area p { font-size: 0.85rem; }
+            .discord-profile { max-width: 300px; padding: 10px; }
+            .discord-profile .avatar img { width: 60px; height: 60px; }
+            .discord-profile h3 { font-size: 1rem; }
+            .discord-profile .global-name { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -329,6 +418,18 @@
         <p>Personal social networking site:</p>
         <div class="links">
             <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
+        </div>
+        <div class="discord-profile">
+            <img class="banner" id="discord-banner" src="" alt="Discord Banner">
+            <div class="overlay"></div>
+            <div class="avatar">
+                <img id="discord-avatar" src="" alt="Discord Avatar">
+            </div>
+            <h3 id="discord-username"></h3>
+            <div class="global-name" id="discord-global-name"></div>
+            <div class="discord-id" id="discord-id"></div>
+            <div class="created-at" id="discord-created-at"></div>
+            <div class="badges" id="discord-badges"></div>
         </div>
     </div>
 
@@ -344,12 +445,11 @@
             <div class="popup-overlay"></div>
             <button class="close-btn" onclick="toggleAvatar()">Đóng</button>
             <div class="avatar">
-                <img id="discord-avatar" src="avatar.jpg" alt="dieannam">
+                <img src="avatar.jpg" alt="dieannam">
             </div>
             <div class="info-area">
-                <h2 id="discord-username">Thông tin cá nhân</h2>
-                <p id="discord-bio">Dieannam, là một người chơi piano tự do và cũng là một coder tự do, cảm ơn vì đã ghé xem !!!</p>
-                <p id="discord-id" style="font-size: 0.9rem; color: #ccc;"></p>
+                <h2>Thông tin cá nhân</h2>
+                <p>Dieannam, là một người chơi piano tự do và cũng là một coder tự do, cảm ơn vì đã ghé xem !!!</p>
                 <div class="links">
                     <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
                 </div>
@@ -364,56 +464,78 @@
             if (!avatarContainer.classList.contains('show')) {
                 avatarContainer.style.display = 'flex';
                 setTimeout(() => avatarContainer.classList.add('show'), 10);
-                fetchDiscordData(); // Gọi API khi mở popup
             } else {
                 avatarContainer.classList.remove('show');
                 setTimeout(() => avatarContainer.style.display = 'none', 500);
             }
         }
 
-        // Hàm gọi API Discord Lookup
-        async function fetchDiscordData() {
-            const url = 'https://discordlookup.mesalytic.moe/v1/user/864592425883926589';
-            const avatarImg = document.getElementById('discord-avatar');
-            const username = document.getElementById('discord-username');
-            const bio = document.getElementById('discord-bio');
-            const discordId = document.getElementById('discord-id');
-
-            try {
-                const response = await fetch(url, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                const data = await response.json();
-
-                if (data.message) {
-                    throw new Error(data.message);
-                }
-
-                // Cập nhật ảnh đại diện
-                if (data.avatar) {
-                    avatarImg.src = `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png?size=256`;
-                }
-
-                // Cập nhật tên người dùng
-                username.textContent = data.username || 'Không có tên';
-
-                // Cập nhật ID Discord
-                discordId.textContent = `ID: ${data.id}`;
-
-                // Cập nhật bio (nếu có, nếu không giữ nguyên bio mặc định)
-                if (data.bio) {
-                    bio.textContent = data.bio;
-                }
-
-            } catch (error) {
-                console.error('Lỗi khi lấy dữ liệu Discord:', error);
-                username.textContent = 'Lỗi tải dữ liệu';
-                discordId.textContent = 'Không thể lấy ID';
-                avatarImg.src = 'avatar.jpg'; // Ảnh mặc định nếu lỗi
+        // Dữ liệu JSON tĩnh
+        const discordData = {
+            "id": "864592425883926589",
+            "created_at": "2021-07-13T19:41:37.681Z",
+            "username": "vai7777",
+            "avatar": {
+                "id": "f6d3d2e14a0dab9f198a13f030a5a92f",
+                "link": "https://cdn.discordapp.com/avatars/864592425883926589/f6d3d2e14a0dab9f198a13f030a5a92f",
+                "is_animated": false
+            },
+            "avatar_decoration": {
+                "asset": "a_291f95e35311551eddc4ad6fc9423dca",
+                "sku_id": "1347624589571788951",
+                "expires_at": null
+            },
+            "badges": ["HOUSE_BRAVERY", "ACTIVE_DEVELOPER"],
+            "accent_color": 1118740,
+            "global_name": "ナムさん",
+            "banner": {
+                "id": "a_dc7a31babaf7f0c5ecc128a9eb31bded",
+                "link": "https://cdn.discordapp.com/banners/864592425883926589/a_dc7a31babaf7f0c5ecc128a9eb31bded?size=480",
+                "is_animated": true,
+                "color": "#111214"
             }
+        };
+
+        // Hàm hiển thị dữ liệu Discord
+        function displayDiscordProfile() {
+            const avatarImg = document.getElementById('discord-avatar');
+            const bannerImg = document.getElementById('discord-banner');
+            const username = document.getElementById('discord-username');
+            const globalName = document.getElementById('discord-global-name');
+            const discordId = document.getElementById('discord-id');
+            const createdAt = document.getElementById('discord-created-at');
+            const badgesContainer = document.getElementById('discord-badges');
+
+            // Cập nhật ảnh đại diện
+            avatarImg.src = discordData.avatar.link + '.png?size=256';
+
+            // Cập nhật hình nền
+            bannerImg.src = discordData.banner.link + (discordData.banner.is_animated ? '.gif?size=480' : '.png?size=480');
+
+            // Cập nhật màu nền dựa trên accent_color
+            document.querySelector('.discord-profile').style.backgroundColor = `#${discordData.accent_color.toString(16).padStart(6, '0')}`;
+
+            // Cập nhật tên người dùng và tên toàn cầu
+            username.textContent = discordData.username;
+            globalName.textContent = discordData.global_name;
+
+            // Cập nhật ID
+            discordId.textContent = `ID: ${discordData.id}`;
+
+            // Cập nhật ngày tạo tài khoản
+            const createdDate = new Date(discordData.created_at);
+            createdAt.textContent = `Tạo ngày: ${createdDate.toLocaleDateString('vi-VN')}`;
+
+            // Cập nhật huy hiệu
+            discordData.badges.forEach(badge => {
+                const badgeSpan = document.createElement('span');
+                badgeSpan.textContent = badge.replace('_', ' ');
+                badgesContainer.appendChild(badgeSpan);
+            });
         }
+
+        // Gọi hàm hiển thị khi trang tải
+        window.onload = displayDiscordProfile;
     </script>
 </body>
 </html>
