@@ -210,6 +210,7 @@
             height: 140px;
             object-fit: cover;
             object-position: center;
+            border-radius: 50%;
             animation: fadeIn 1s ease forwards 0.2s;
             opacity: 0;
         }
@@ -343,11 +344,12 @@
             <div class="popup-overlay"></div>
             <button class="close-btn" onclick="toggleAvatar()">Đóng</button>
             <div class="avatar">
-                <img src="avatar.jpg" alt="dieannam">
+                <img id="discord-avatar" src="avatar.jpg" alt="dieannam">
             </div>
             <div class="info-area">
-                <h2>Thông tin cá nhân</h2>
-                <p>Dieannam, là một người chơi piano tự do và cũng là một coder tự do, cảm ơn vì đã ghé xem !!!</p>
+                <h2 id="discord-username">Thông tin cá nhân</h2>
+                <p id="discord-bio">Dieannam, là một người chơi piano tự do và cũng là một coder tự do, cảm ơn vì đã ghé xem !!!</p>
+                <p id="discord-id" style="font-size: 0.9rem; color: #ccc;"></p>
                 <div class="links">
                     <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
                 </div>
@@ -356,14 +358,60 @@
     </div>
 
     <script>
+        // Hàm toggle hiển thị/ẩn avatar container
         function toggleAvatar() {
             const avatarContainer = document.querySelector('.avatar-container');
             if (!avatarContainer.classList.contains('show')) {
                 avatarContainer.style.display = 'flex';
                 setTimeout(() => avatarContainer.classList.add('show'), 10);
+                fetchDiscordData(); // Gọi API khi mở popup
             } else {
                 avatarContainer.classList.remove('show');
                 setTimeout(() => avatarContainer.style.display = 'none', 500);
+            }
+        }
+
+        // Hàm gọi API Discord Lookup
+        async function fetchDiscordData() {
+            const url = 'https://discordlookup.mesalytic.moe/v1/user/864592425883926589';
+            const avatarImg = document.getElementById('discord-avatar');
+            const username = document.getElementById('discord-username');
+            const bio = document.getElementById('discord-bio');
+            const discordId = document.getElementById('discord-id');
+
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+
+                if (data.message) {
+                    throw new Error(data.message);
+                }
+
+                // Cập nhật ảnh đại diện
+                if (data.avatar) {
+                    avatarImg.src = `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png?size=256`;
+                }
+
+                // Cập nhật tên người dùng
+                username.textContent = data.username || 'Không có tên';
+
+                // Cập nhật ID Discord
+                discordId.textContent = `ID: ${data.id}`;
+
+                // Cập nhật bio (nếu có, nếu không giữ nguyên bio mặc định)
+                if (data.bio) {
+                    bio.textContent = data.bio;
+                }
+
+            } catch (error) {
+                console.error('Lỗi khi lấy dữ liệu Discord:', error);
+                username.textContent = 'Lỗi tải dữ liệu';
+                discordId.textContent = 'Không thể lấy ID';
+                avatarImg.src = 'avatar.jpg'; // Ảnh mặc định nếu lỗi
             }
         }
     </script>
