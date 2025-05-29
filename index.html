@@ -15,8 +15,7 @@
 
         body, html {
             height: 100%;
-            overflow: hidden;
-            background: transparent;
+            overflow: auto;
         }
 
         .background {
@@ -29,7 +28,6 @@
             transform: translate(-50%, -50%) scale(1.2);
             filter: blur(12px);
             z-index: -1;
-            background: #000;
             animation: pulse 10s ease-in-out infinite;
         }
 
@@ -46,97 +44,105 @@
         }
 
         .main-container {
-            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            min-height: 100vh;
             color: #fff;
             z-index: 2;
             padding: 20px;
             text-align: center;
+            gap: 15px;
         }
 
         h1 {
-            font-size: 3.2rem;
+            font-size: 2.8rem;
             font-weight: 900;
             letter-spacing: -0.02em;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            background: linear-gradient(45deg, #fff, #a0a0a0);
+            background: linear-gradient(45deg, #ffffff, #000000);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: slideUp 1s ease forwards;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: slideUp 0.8s ease forwards;
+            animation-fill-mode: forwards;
         }
 
         p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 300;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
             max-width: 500px;
             color: #e0e0e0;
             line-height: 1.5;
-            animation: slideUp 1s ease forwards 0.2s;
+            animation: slideUp 0.8s ease forwards 0.2s;
             opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .links a {
-            display: inline-block;
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 600;
             padding: 10px 25px;
             text-decoration: none;
-            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
             color: #fff;
-            border: 2px solid #fff;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
-            animation: fadeIn 1s ease forwards 0.4s;
+            animation: scaleIn 0.8s ease forwards 0.4s;
             opacity: 0;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            animation-fill-mode: forwards;
         }
 
         .links a:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 0 18px rgba(255, 255, 255, 0.6);
-            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #f58529);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
         }
 
         .show-more-btn {
-            position: fixed;
-            bottom: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 10px 28px;
+            background: linear-gradient(45deg, #60a5fa, #1e40af);
+            color: #fff;
+            padding: 10px 25px;
             font-size: 1rem;
             font-weight: 600;
+            border: 1px solid transparent;
+            border-radius: 5px;
             cursor: pointer;
-            z-index: 2;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
-            animation: fadeIn 1s ease forwards 0.6s;
+            animation: slideUp 0.8s ease forwards 0.6s;
             opacity: 0;
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite alternate, slideUp 0.8s ease forwards 0.6s;
+            animation-fill-mode: forwards;
+            z-index: 3;
         }
 
         .show-more-btn:hover {
-            background: #e0e0e0;
-            transform: translateX(-50%) scale(1.05) translateY(-2px);
-            box-shadow: 0 0 18px rgba(255, 255, 255, 0.6);
+            background: linear-gradient(45deg, #1e40af, #60a5fa);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.7);
+            border-color: #93c5fd;
         }
 
         .copyright {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            font-size: 0.75rem;
+            bottom: 10px;
+            left: 10px;
+            font-size: 0.7rem;
             font-weight: 400;
             color: #b0b0b0;
-            z-index: 2;
-            animation: fadeIn 1s ease forwards 0.8s;
+            animation: fadeIn 0.8s ease forwards 0.8s;
             opacity: 0;
+            animation-fill-mode: forwards;
         }
 
         .avatar-container {
@@ -147,7 +153,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0);
-            z-index: 3;
+            z-index: 4;
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -163,15 +169,16 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            max-width: 650px;
+            max-width: 500px;
             width: 100%;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.2);
             overflow: hidden;
             opacity: 0;
-            transform: scale(0.9) translateY(40px);
+            transform: scale(0.9) translateY(20px);
             transition: all 0.5s ease;
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
         }
 
         .avatar-container.show .avatar-content {
@@ -186,8 +193,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: blur(15px);
+            filter: blur(10px);
             z-index: -1;
+            opacity: 0.5;
         }
 
         .popup-overlay {
@@ -201,17 +209,16 @@
         }
 
         .avatar {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
         }
 
         .avatar img {
-            width: 140px;
-            height: 140px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
             object-position: center;
-            animation: fadeIn 1s ease forwards 0.2s;
-            opacity: 0;
+            /* Vuông, không viền, không animation */
         }
 
         .info-area {
@@ -223,74 +230,81 @@
         }
 
         .info-area h2 {
-            font-size: 1.7rem;
+            font-size: 1.5rem;
             font-weight: 800;
             margin-bottom: 10px;
-            color: #fff;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease forwards 0.4s;
+            background: linear-gradient(45deg, #ffffff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: fadeIn 0.8s ease forwards 0.4s;
             opacity: 0;
+            animation-fill-mode: forwards;
         }
 
         .info-area p {
-            font-size: 0.95rem;
-            font-weight: 400;
-            color: #fff;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-            line-height: 1.6;
-            margin-bottom: 15px;
-            animation: fadeIn 1s ease forwards 0.6s;
-            opacity: 0;
-        }
-
-        .info-area .links a {
             font-size: 0.9rem;
-            padding: 8px 20px;
-            border: 2px solid #fff;
-            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
-            color: #fff;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-            animation: fadeIn 1s ease forwards 0.8s;
+            font-weight: 400;
+            color: #ccc;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            animation: fadeIn 0.8s ease forwards 0.6s;
             opacity: 0;
-        }
-
-        .info-area .links a:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #f58529);
+            animation-fill-mode: forwards;
         }
 
         .close-btn {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: #000;
+            background: linear-gradient(45deg, #fa6060, #af1e1e);
             color: #fff;
-            border: none;
-            padding: 6px 14px;
-            font-size: 0.9rem;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease forwards 0.8s;
+            opacity: 0;
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite alternate, fadeIn 0.8s ease forwards 0.8s;
+            animation-fill-mode: forwards;
+            z-index: 5;
         }
 
         .close-btn:hover {
-            background: #333;
-            transform: scale(1.05);
+            background: linear-gradient(45deg, #af1e1e, #fa6060);
+            transform: rotate(90deg);
+            box-shadow: 0 0 10px rgba(96, 165, 250, 0.7);
+            border-color: #93c5fd;
         }
 
         /* CSS cho khung Discord Profile */
         .discord-profile {
             position: relative;
-            max-width: 400px;
+            max-width: 320px;
             width: 100%;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 15px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
             overflow: hidden;
-            animation: slideUp 1s ease forwards 0.6s;
+            animation: scaleIn 0.8s ease forwards 0.2s;
+            background: linear-gradient(145deg, #2a2a4a, #1a1a2a);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .discord-profile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
 
         .discord-profile .banner {
@@ -300,8 +314,14 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: blur(10px);
+            filter: blur(6px);
+            opacity: 0.6;
             z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .discord-profile:hover .banner {
+            opacity: 0.8;
         }
 
         .discord-profile .overlay {
@@ -310,56 +330,54 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.4);
             z-index: -1;
         }
 
+        .discord-profile-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .discord-profile .avatar img {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            border: 2px solid #fff;
-            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .discord-profile .avatar img:hover {
+            transform: rotate(10deg);
+        }
+
+        .discord-profile .info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .discord-profile h3 {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            color: #fff;
-            margin-bottom: 5px;
+            background: linear-gradient(45deg, #ff0000, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 8px rgba(255, 0, 157, 0.5);
+            animation: slideUp 0.8s ease forwards 0.4s;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
 
         .discord-profile .global-name {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 400;
-            color: #ccc;
-            margin-bottom: 10px;
-        }
-
-        .discord-profile .discord-id {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-bottom: 10px;
-        }
-
-        .discord-profile .created-at {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-bottom: 10px;
-        }
-
-        .discord-profile .badges {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .discord-profile .badges span {
-            font-size: 0.8rem;
-            padding: 5px 10px;
-            background: #333;
-            border-radius: 12px;
-            color: #fff;
+            color: #00f0ff;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+            animation: slideUp 0.8s ease forwards 0.6s;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
 
         @keyframes fadeIn {
@@ -368,8 +386,13 @@
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         @keyframes pulse {
@@ -377,34 +400,42 @@
             50% { transform: translate(-50%, -50%) scale(1.25); }
         }
 
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
         @media (max-width: 768px) {
-            h1 { font-size: 2.3rem; }
+            h1 { font-size: 2.2rem; }
             p, .links a, .show-more-btn { font-size: 0.95rem; }
-            .logo { max-width: 420px; top: 15%; }
-            .avatar-content { padding: 20px; }
-            .avatar img { width: 120px; height: 120px; }
-            .copyright { font-size: 0.7rem; }
-            .show-more-btn { bottom: 60px; padding: 10px 25px; }
-            .info-area h2 { font-size: 1.5rem; }
-            .info-area p { font-size: 0.9rem; }
-            .discord-profile { max-width: 350px; padding: 15px; }
-            .discord-profile h3 { font-size: 1.2rem; }
-            .discord-profile .global-name { font-size: 0.9rem; }
+            .logo { width: 80px; }
+            .avatar-content { padding: 15px; }
+            .avatar img { width: 80px; height: 80px; }
+            .copyright { font-size: 0.65rem; }
+            .show-more-btn { padding: 8px 20px; }
+            .info-area h2 { font-size: 1.3rem; }
+            .info-area p { font-size: 0.85rem; }
+            .discord-profile { max-width: 280px; padding: 12px; }
+            .discord-profile h3 { font-size: 1.1rem; }
+            .discord-profile .global-name { font-size: 0.85rem; }
+            .discord-profile .avatar img { width: 50px; height: 50px; }
+            .links { gap: 10px; }
         }
 
         @media (max-width: 480px) {
             h1 { font-size: 1.8rem; }
-            p, .links a, .show-more-btn { font-size: 0.85rem; }
-            .logo { max-width: 320px; }
-            .avatar img { width: 100px; height: 100px; }
-            .copyright { font-size: 0.65rem; }
-            .show-more-btn { bottom: 50px; padding: 8px 20px; }
-            .info-area h2 { font-size: 1.3rem; }
-            .info-area p { font-size: 0.85rem; }
-            .discord-profile { max-width: 300px; padding: 10px; }
-            .discord-profile .avatar img { width: 60px; height: 60px; }
+            p, .links a, .show-more-btn { font-size: 0.9rem; }
+            .logo { width: 60px; }
+            .avatar img { width: 60px; height: 60px; }
+            .copyright { font-size: 0.6rem; }
+            .show-more-btn { padding: 7px 15px; }
+            .info-area h2 { font-size: 1.2rem; }
+            .info-area p { font-size: 0.8rem; }
+            .discord-profile { max-width: 250px; padding: 10px; }
             .discord-profile h3 { font-size: 1rem; }
             .discord-profile .global-name { font-size: 0.8rem; }
+            .discord-profile .avatar img { width: 45px; height: 45px; }
+            .links a { padding: 7px 15px; }
         }
     </style>
 </head>
@@ -416,24 +447,22 @@
     <div class="main-container">
         <h1>Welcome to dieannam's website</h1>
         <p>Personal social networking site:</p>
-        <div class="links">
-            <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
-        </div>
+        <div class="links" id="social-links"></div>
         <div class="discord-profile">
             <img class="banner" id="discord-banner" src="" alt="Discord Banner">
             <div class="overlay"></div>
-            <div class="avatar">
-                <img id="discord-avatar" src="" alt="Discord Avatar">
+            <div class="discord-profile-content">
+                <div class="avatar">
+                    <img id="discord-avatar" src="" alt="Discord Avatar">
+                </div>
+                <div class="info">
+                    <h3 id="discord-username"></h3>
+                    <div class="global-name" id="discord-global-name"></div>
+                </div>
             </div>
-            <h3 id="discord-username"></h3>
-            <div class="global-name" id="discord-global-name"></div>
-            <div class="discord-id" id="discord-id"></div>
-            <div class="created-at" id="discord-created-at"></div>
-            <div class="badges" id="discord-badges"></div>
         </div>
+        <button class="show-more-btn" onclick="toggleAvatar()">Thông tin cá nhân</button>
     </div>
-
-    <button class="show-more-btn" onclick="toggleAvatar()">Thông tin cá nhân</button>
 
     <div class="copyright">
         © Bản quyền thuộc dieannam
@@ -443,16 +472,13 @@
         <div class="avatar-content">
             <img class="popup-background" src="popup_bg.png" alt="Popup Background">
             <div class="popup-overlay"></div>
-            <button class="close-btn" onclick="toggleAvatar()">Đóng</button>
+            <button class="close-btn" onclick="toggleAvatar()">✕</button>
             <div class="avatar">
                 <img src="avatar.jpg" alt="dieannam">
             </div>
             <div class="info-area">
                 <h2>Thông tin cá nhân</h2>
                 <p>Dieannam, là một người chơi piano tự do và cũng là một coder tự do, cảm ơn vì đã ghé xem !!!</p>
-                <div class="links">
-                    <a href="https://www.instagram.com/diean.nam/" target="_blank">Instagram</a>
-                </div>
             </div>
         </div>
     </div>
@@ -470,7 +496,60 @@
             }
         }
 
-        // Dữ liệu JSON tĩnh
+        // Mảng dữ liệu cho các liên kết mạng xã hội
+        const socialLinks = [
+            {
+                name: 'Instagram',
+                url: 'https://www.instagram.com/diean.nam/'
+            },
+            {
+                name: 'Facebook',
+                url: 'https://www.facebook.com/yourprofile'
+            },
+            {
+                name: 'Twitter',
+                url: 'https://twitter.com/yourprofile'
+            }
+        ];
+
+        // Bộ màu cho các mạng xã hội
+        const socialColors = {
+            Instagram: { start: '#E1306C', end: '#FCAF45' },
+            Facebook: { start: '#1877F2', end: '#3B5998' },
+            Twitter: { start: '#1DA1F2', end: '#00ACEE' },
+            Discord: { start: '#5865F2', end: '#7289DA' },
+            Twitch: { start: '#9146FF', end: '#6441A5' },
+            Steam: { start: '#171A21', end: '#2A475E' },
+            EpicGames: { start: '#000000', end: '#333333' },
+            YouTube: { start: '#FF0000', end: '#CC0000' },
+            TikTok: { start: '#000000', end: '#69C9D0' },
+            GitHub: { start: '#181717', end: '#333333' },
+            LinkedIn: { start: '#0A66C2', end: '#004182' },
+            Reddit: { start: '#FF4500', end: '#FF5700' },
+            Spotify: { start: '#1DB954', end: '#1ED760' },
+            Snapchat: { start: '#FFFC00', end: '#FFFF00' }
+        };
+
+        // Hàm render các nút mạng xã hội
+        function renderSocialLinks() {
+            const linksContainer = document.getElementById('social-links');
+            linksContainer.innerHTML = '';
+            socialLinks.forEach((link, index) => {
+                const linkElement = document.createElement('a');
+                linkElement.href = link.url;
+                linkElement.target = '_blank';
+                linkElement.textContent = link.name;
+                linkElement.style.animationDelay = `${0.4 + index * 0.1}s`;
+                // Áp dụng màu theo mạng xã hội
+                const colors = socialColors[link.name] || { start: '#f58529', end: '#8134af' };
+                linkElement.style.background = `linear-gradient(45deg, ${colors.start}, ${colors.end})`;
+                linkElement.style.setProperty('--hover-start', colors.end);
+                linkElement.style.setProperty('--hover-end', colors.start);
+                linksContainer.appendChild(linkElement);
+            });
+        }
+
+        // Dữ liệu JSON tĩnh cho Discord
         const discordData = {
             "id": "864592425883926589",
             "created_at": "2021-07-13T19:41:37.681Z",
@@ -502,40 +581,18 @@
             const bannerImg = document.getElementById('discord-banner');
             const username = document.getElementById('discord-username');
             const globalName = document.getElementById('discord-global-name');
-            const discordId = document.getElementById('discord-id');
-            const createdAt = document.getElementById('discord-created-at');
-            const badgesContainer = document.getElementById('discord-badges');
 
-            // Cập nhật ảnh đại diện
             avatarImg.src = discordData.avatar.link + '.png?size=256';
-
-            // Cập nhật hình nền
             bannerImg.src = discordData.banner.link + (discordData.banner.is_animated ? '.gif?size=480' : '.png?size=480');
-
-            // Cập nhật màu nền dựa trên accent_color
-            document.querySelector('.discord-profile').style.backgroundColor = `#${discordData.accent_color.toString(16).padStart(6, '0')}`;
-
-            // Cập nhật tên người dùng và tên toàn cầu
             username.textContent = discordData.username;
             globalName.textContent = discordData.global_name;
-
-            // Cập nhật ID
-            discordId.textContent = `ID: ${discordData.id}`;
-
-            // Cập nhật ngày tạo tài khoản
-            const createdDate = new Date(discordData.created_at);
-            createdAt.textContent = `Tạo ngày: ${createdDate.toLocaleDateString('vi-VN')}`;
-
-            // Cập nhật huy hiệu
-            discordData.badges.forEach(badge => {
-                const badgeSpan = document.createElement('span');
-                badgeSpan.textContent = badge.replace('_', ' ');
-                badgesContainer.appendChild(badgeSpan);
-            });
         }
 
-        // Gọi hàm hiển thị khi trang tải
-        window.onload = displayDiscordProfile;
+        // Gọi các hàm khi trang tải
+        window.onload = () => {
+            renderSocialLinks();
+            displayDiscordProfile();
+        };
     </script>
 </body>
 </html>
