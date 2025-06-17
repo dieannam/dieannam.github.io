@@ -17,7 +17,7 @@
         body, html {
             height: 100%;
             overflow: auto;
-            background-color: #111; /* Màu nền dự phòng nếu ảnh không tải được */
+            /* Dòng background-color: #111; đã được xóa ở đây để nền trong suốt */
         }
 
         /* Hình nền động */
@@ -32,29 +32,6 @@
             filter: blur(12px);
             z-index: -1;
             animation: pulse 10s ease-in-out infinite;
-        }
-
-        /* Logo với kích thước linh hoạt (ĐÃ CẬP NHẬT) */
-        .logo {
-            position: fixed;
-            top: 25%;
-            left: 54%;
-            transform: translate(-50%, -50%);
-            
-            /* Đặt kích thước tối đa cho logo trên màn hình lớn */
-            max-width: 150px; 
-            
-            /* Chiều rộng linh hoạt theo kích thước màn hình */
-            width: 25vw;
-
-            /* Đảm bảo logo không bị quá nhỏ trên màn hình hẹp */
-            min-width: 70px;
-
-            /* Tự động tính chiều cao để giữ tỷ lệ, chống méo ảnh */
-            height: auto; 
-            
-            z-index: 1;
-            animation: fadeIn 1.5s ease forwards;
         }
 
         /* Vùng chứa nội dung chính */
@@ -384,7 +361,6 @@
 </head>
 <body>
     <img class="background" src="blue.gif" alt="Background Animation">
-    <img class="logo" src="logo.png" alt="Biểu tượng dieannam">
 
     <div class="main-container">
         <h1>Welcome to dieannam's website</h1>
@@ -433,7 +409,7 @@
                 setTimeout(() => avatarContainer.classList.add('show'), 10);
             } else {
                 avatarContainer.classList.remove('show');
-                setTimeout(() => { avatarContainer.style.display = 'none'; }, 500); // Thời gian khớp với transition
+                setTimeout(() => { avatarContainer.style.display = 'none'; }, 500);
             }
         }
 
@@ -451,7 +427,6 @@
         const socialColors = {
             Instagram: { start: '#E1306C', end: '#FCAF45' },
             Discord: { start: '#5865F2', end: '#7289DA' },
-            // Thêm các mạng xã hội khác vào đây nếu muốn
         };
 
         /**
@@ -459,11 +434,11 @@
          */
         function renderSocialLinks() {
             const linksContainer = document.getElementById('social-links');
-            linksContainer.innerHTML = ''; // Xóa các link cũ trước khi render
+            linksContainer.innerHTML = '';
             socialLinks.forEach((link, index) => {
                 const linkElement = document.createElement('a');
                 linkElement.href = link.url;
-                linkElement.target = '_blank'; // Mở trong tab mới
+                linkElement.target = '_blank';
                 linkElement.textContent = link.name;
                 linkElement.style.animationDelay = `${0.4 + index * 0.1}s`;
                 
@@ -476,7 +451,6 @@
         
         /**
          * Dữ liệu JSON tĩnh cho hồ sơ Discord.
-         * Việc này giúp trang tải nhanh và không cần gọi API bên ngoài.
          */
         const staticDiscordData = {
           "profileUrl": "https://discord.com/users/864592425883926589",
@@ -495,7 +469,6 @@
             const usernameEl = document.getElementById('discord-username');
             const globalNameEl = document.getElementById('discord-global-name');
 
-            // Gán trực tiếp các giá trị từ đối tượng JSON
             if(avatarImg) avatarImg.src = staticDiscordData.avatarUrl;
             if(usernameEl) usernameEl.textContent = staticDiscordData.username;
             if(globalNameEl) globalNameEl.textContent = staticDiscordData.display_name;
