@@ -110,7 +110,7 @@
             animation: shine 5s infinite 2s;
         }
 
-        .discord-profile {
+        .discord-profile, .bot-profile { /* Áp dụng style chung cho cả hai profile */
             position: relative;
             max-width: 320px;
             width: 100%;
@@ -119,14 +119,47 @@
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
             overflow: hidden;
-            animation: scaleIn 0.8s ease forwards 1.4s;
             background: linear-gradient(145deg, #2a2a4a, #1a1a2a);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             opacity: 0;
             animation-fill-mode: forwards;
         }
 
-        .discord-profile .banner {
+        .discord-profile {
+             animation: scaleIn 0.8s ease forwards 1.4s;
+        }
+
+        /* --- CSS MỚI CHO PHẦN BOT --- */
+        .bot-profile {
+            animation: scaleIn 0.8s ease forwards 1.6s; /* Xuất hiện sau profile cá nhân */
+        }
+        
+        .bot-profile .info-area {
+            text-align: left;
+            width: 100%;
+        }
+
+        .bot-profile .invite-btn {
+            display: inline-block;
+            margin-top: 12px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #fff;
+            background: linear-gradient(45deg, #2dd4bf, #059669); /* Màu xanh lá cây cho hành động "invite" */
+            transition: all 0.3s ease-out;
+            box-shadow: 0 4px 15px rgba(45, 212, 191, 0.4);
+        }
+
+        .bot-profile .invite-btn:hover {
+             transform: translateY(-3px) scale(1.05);
+             box-shadow: 0 6px 25px rgba(45, 212, 191, 0.6);
+        }
+        /* --- KẾT THÚC CSS MỚI --- */
+
+        .discord-profile .banner, .bot-profile .banner {
             position: absolute;
             top: 0;
             left: 0;
@@ -138,7 +171,7 @@
             z-index: 0;
         }
         
-        .discord-profile-content {
+        .discord-profile-content, .bot-profile-content {
             position: relative;
             z-index: 1;
             display: flex;
@@ -149,9 +182,10 @@
             border-radius: 8px;
         }
         
-        .discord-profile .avatar img { width: 60px; height: 60px; border-radius: 50%; transition: transform 0.3s ease; }
-        .discord-profile .info { flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: left; }
-        .discord-profile h3 { font-size: 1.2rem; font-weight: 700; background: linear-gradient(45deg, #ff0000, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 8px rgba(255, 0, 157, 0.5); }
+        .discord-profile .avatar img, .bot-profile .avatar img { width: 60px; height: 60px; border-radius: 50%; transition: transform 0.3s ease; border: 2px solid rgba(255,255,255,0.5); }
+        .discord-profile .info, .bot-profile .info { flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: left; }
+        .discord-profile h3, .bot-profile h3 { font-size: 1.2rem; font-weight: 700; background: linear-gradient(45deg, #ff0000, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 8px rgba(255, 0, 157, 0.5); }
+        .bot-profile h3 { background: linear-gradient(45deg, #2dd4bf, #3b82f6); -webkit-background-clip: text; text-shadow: 0 0 8px rgba(59, 130, 246, 0.5); } /* Màu riêng cho tên bot */
         .discord-profile .global-name { font-size: 0.9rem; font-weight: 400; color: #00f0ff; text-shadow: 0 0 5px rgba(0, 255, 255, 0.3); }
 
         .show-more-btn {
@@ -165,7 +199,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease-out;
-            animation: slideUp 0.8s ease forwards 1.6s;
+            animation: slideUp 0.8s ease forwards 1.8s; /* Điều chỉnh lại delay */
             z-index: 3;
             opacity: 0;
             animation-fill-mode: forwards;
@@ -244,6 +278,21 @@
                 </div>
             </div>
         </div>
+
+        <div class="bot-profile">
+            <img class="banner" id="bot-banner" src="" alt="Bot Banner">
+            <div class="bot-profile-content">
+                 <div class="avatar">
+                    <img id="bot-avatar" src="" alt="Bot Avatar">
+                </div>
+                <div class="info">
+                    <h3 id="bot-username">Loading Bot...</h3>
+                    <div class="info-area">
+                         <a id="bot-invite-link" href="#" target="_blank" class="invite-btn">Invite Me</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <button class="show-more-btn" onclick="toggleAvatar()">About Me</button>
     </div>
 
@@ -265,9 +314,8 @@
     </div>
 
     <script>
-        // --- JAVASCRIPT ĐÃ ĐƯỢC CẤU TRÚC LẠI ĐỂ SỬA LỖI ---
+        // --- JAVASCRIPT ĐÃ ĐƯỢC CẤU TRÚC LẠI VÀ BỔ SUNG ---
 
-        // 1. Định nghĩa các hằng số và hàm ở phạm vi toàn cục để HTML có thể truy cập.
         const socialLinks = [
             { name: 'Instagram', url: 'https://www.instagram.com/diean.nam/' },
             { name: 'Discord', url: 'https://discord.com/users/864592425883926589' }
@@ -278,10 +326,6 @@
             Discord: { start: '#5865F2', end: '#7289DA' },
         };
 
-        /**
-         * Hàm hiển thị hoặc ẩn cửa sổ pop-up thông tin cá nhân.
-         * Giờ đây nó đã ở đúng vị trí và có thể được gọi bởi nút 'About Me'.
-         */
         function toggleAvatar() {
             const avatarContainer = document.querySelector('.avatar-container');
             if (!avatarContainer.classList.contains('show')) {
@@ -293,9 +337,6 @@
             }
         }
 
-        /**
-         * Hàm tạo và hiển thị các nút mạng xã hội từ dữ liệu.
-         */
         function renderSocialLinks() {
             const linksContainer = document.getElementById('social-links');
             linksContainer.innerHTML = '';
@@ -313,15 +354,11 @@
             });
         }
         
-        /**
-         * Hàm sử dụng fetch để lấy và hiển thị dữ liệu Discord từ API.
-         */
         async function displayDiscordProfile() {
             const avatarImg = document.getElementById('discord-avatar');
             const bannerImg = document.getElementById('discord-banner');
             const usernameEl = document.getElementById('discord-username');
             const globalNameEl = document.getElementById('discord-global-name');
-
             const apiUrl = 'https://discordlookup.mesalytic.moe/v1/user/864592425883926589';
 
             try {
@@ -343,10 +380,44 @@
             }
         }
 
-        // 2. Chỉ gọi các hàm thực thi khi trang đã tải xong.
+        /**
+         * --- HÀM MỚI ĐỂ LẤY THÔNG TIN BOT ---
+         * Lấy dữ liệu của bot từ API và cập nhật giao diện.
+         */
+        async function displayBotProfile() {
+            const avatarImg = document.getElementById('bot-avatar');
+            const bannerImg = document.getElementById('bot-banner');
+            const usernameEl = document.getElementById('bot-username');
+            const inviteLink = document.getElementById('bot-invite-link');
+
+            const botApiUrl = 'https://discordlookup.mesalytic.moe/v1/user/1138065620135575602';
+            const botInviteUrl = 'https://discord.com/oauth2/authorize?client_id=1138065620135575602&permissions=8&integration_type=0&scope=bot';
+
+            // Cập nhật link mời ngay lập tức
+            if(inviteLink) inviteLink.href = botInviteUrl;
+
+            try {
+                const response = await fetch(botApiUrl);
+                 if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+                const data = await response.json();
+
+                if(avatarImg) avatarImg.src = data.avatar.link + '?size=128';
+                if(bannerImg && data.banner) bannerImg.src = data.banner.link + '?size=480';
+                if(usernameEl) usernameEl.textContent = data.username;
+
+            } catch (error) {
+                console.error("Failed to fetch Bot profile:", error);
+                if (usernameEl) usernameEl.textContent = "Bot Offline";
+            }
+        }
+
+        // Gọi tất cả các hàm cần thiết khi trang tải xong.
         window.onload = () => {
             renderSocialLinks();
             displayDiscordProfile();
+            displayBotProfile(); // Gọi hàm mới
         };
 
     </script>
