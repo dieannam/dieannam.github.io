@@ -3,33 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dieannam's Profile</title>
+    <title>DIEANNAM</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Toàn bộ CSS từ trước vẫn được giữ nguyên, không thay đổi */
+        /* --- PHONG CÁCH CHUNG (Giữ Nguyên Tính Nghệ Thuật) --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Cormorant Garamond', serif;
         }
 
         body, html {
             height: 100%;
             overflow: auto;
+            background-color: #fcfcfc; /* Trắng ngà nhẹ */
+            color: #333;
         }
 
         .background {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 0;
+            left: 0;
             width: 100vw;
             height: 100vh;
-            object-fit: cover;
-            transform: translate(-50%, -50%) scale(1.2);
-            filter: blur(12px) brightness(70%);
-            z-index: -1;
-            animation: pulse 10s ease-in-out infinite;
+            /* Thay thế bằng một ảnh lớn, chất lượng cao, độ mờ thấp (Ví dụ: bàn phím piano, phòng hòa nhạc cổ) */
+            background-image: url('main_bg.jpg'); /* 🖼️ KHUNG HÌNH NỀN 1: Thay bằng ảnh nền chính */
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(110%) contrast(100%); /* Hiệu ứng đen trắng cổ điển, sáng */
+            opacity: 0.3; /* Độ mờ nhẹ */
+            z-index: 0;
+            transition: all 1.5s ease;
         }
 
         .main-container {
@@ -38,262 +45,166 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            color: #fff;
-            z-index: 2;
             padding: 20px;
             text-align: center;
-            gap: 18px;
+            gap: 25px; 
+            background-color: rgba(255, 255, 255, 0.7); /* Lớp phủ trắng trong suốt để tăng tính dễ đọc */
+            z-index: -1;
         }
-
+        
+        /* --- TIÊU ĐỀ & MÔ TẢ --- */
         h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            letter-spacing: 0.05em;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.2);
-            animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 0.5s both;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            margin-bottom: 5px;
+            text-transform: capitalize;
+            color: #4A4A4A; /* Xám than lịch sự */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            animation: text-fade-in 1.5s ease-out 0.5s forwards;
+            opacity: 0;
         }
 
         p {
-            font-size: 1.1rem;
-            font-weight: 300;
-            margin-bottom: 10px;
-            max-width: 500px;
-            color: #e0e0e0;
-            line-height: 1.6;
-            animation: slideUp 0.8s ease forwards 1s;
+            font-size: 1.3rem;
+            font-weight: 400;
+            max-width: 600px;
+            color: #666;
+            line-height: 1.8;
+            animation: slideUp-soft 1.2s ease-out forwards 1s;
             opacity: 0;
-            animation-fill-mode: forwards;
         }
 
+        /* --- KHU VỰC LIÊN KẾT XÃ HỘI --- */
         .links {
             display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+            gap: 20px;
             justify-content: center;
+            margin-top: 10px;
         }
 
         .links a {
             position: relative;
-            font-size: 1rem;
-            font-weight: 600;
-            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 12px 30px;
             text-decoration: none;
             color: #fff;
-            border-radius: 8px;
-            transition: all 0.3s ease-out;
-            animation: scaleIn 0.8s ease forwards 1.2s;
+            border-radius: 50px; /* Hình dạng viên thuốc thanh lịch */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: scaleIn-soft 1.2s ease-out forwards 1.5s;
             opacity: 0;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            animation-fill-mode: forwards;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .links a:hover {
-            transform: translateY(-5px) scale(1.05);
-            filter: brightness(1.2);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-        }
-        
-        .links a::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: skewX(-45deg);
-            animation: shine 5s infinite 2s;
+            transform: translateY(-3px) scale(1.05);
+            filter: saturate(1.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .discord-profile, .bot-profile { /* Áp dụng style chung cho cả hai profile */
-            position: relative;
-            max-width: 320px;
-            width: 100%;
-            padding: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            background: linear-gradient(145deg, #2a2a4a, #1a1a2a);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            opacity: 0;
-            animation-fill-mode: forwards;
+        /* Màu sắc riêng biệt cho Instagram và YouTube */
+        .links a[data-name="Instagram"] {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            animation-delay: 1.5s;
+        }
+        .links a[data-name="YouTube"] {
+            background: linear-gradient(45deg, #ff0000, #c4302b);
+            animation-delay: 1.7s;
         }
 
-        .discord-profile {
-             animation: scaleIn 0.8s ease forwards 1.4s;
-        }
-
-        /* --- CSS MỚI CHO PHẦN BOT --- */
-        .bot-profile {
-            animation: scaleIn 0.8s ease forwards 1.6s; /* Xuất hiện sau profile cá nhân */
-        }
-        
-        .bot-profile .info-area {
-            text-align: left;
-            width: 100%;
-        }
-
-        .bot-profile .invite-btn {
-            display: inline-block;
-            margin-top: 12px;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 700;
-            padding: 10px 20px;
-            border-radius: 8px;
-            color: #fff;
-            background: linear-gradient(45deg, #2dd4bf, #059669); /* Màu xanh lá cây cho hành động "invite" */
-            transition: all 0.3s ease-out;
-            box-shadow: 0 4px 15px rgba(45, 212, 191, 0.4);
-        }
-
-        .bot-profile .invite-btn:hover {
-             transform: translateY(-3px) scale(1.05);
-             box-shadow: 0 6px 25px rgba(45, 212, 191, 0.6);
-        }
-        /* --- KẾT THÚC CSS MỚI --- */
-
-        .discord-profile .banner, .bot-profile .banner {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(2px);
-            opacity: 0.6;
-            z-index: 0;
-        }
-        
-        .discord-profile-content, .bot-profile-content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(0,0,0,0.3);
-            padding: 10px;
-            border-radius: 8px;
-        }
-        
-        .discord-profile .avatar img, .bot-profile .avatar img { width: 60px; height: 60px; border-radius: 50%; transition: transform 0.3s ease; border: 2px solid rgba(255,255,255,0.5); }
-        .discord-profile .info, .bot-profile .info { flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: left; }
-        .discord-profile h3, .bot-profile h3 { font-size: 1.2rem; font-weight: 700; background: linear-gradient(45deg, #ff0000, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 8px rgba(255, 0, 157, 0.5); }
-        .bot-profile h3 { background: linear-gradient(45deg, #2dd4bf, #3b82f6); -webkit-background-clip: text; text-shadow: 0 0 8px rgba(59, 130, 246, 0.5); } /* Màu riêng cho tên bot */
-        .discord-profile .global-name { font-size: 0.9rem; font-weight: 400; color: #00f0ff; text-shadow: 0 0 5px rgba(0, 255, 255, 0.3); }
-
+        /* --- NÚT TIỂU SỬ --- */
         .show-more-btn {
-            position: relative;
-            background: linear-gradient(45deg, #60a5fa, #1e40af);
+            background: #B8860B; /* Vàng đồng chủ đạo */
             color: #fff;
-            padding: 12px 28px;
-            font-size: 1rem;
-            font-weight: 600;
+            padding: 15px 40px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: 0.1em;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease-out;
-            animation: slideUp 0.8s ease forwards 1.8s; /* Điều chỉnh lại delay */
-            z-index: 3;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: scaleIn-soft 1.2s ease-out forwards 2.0s;
             opacity: 0;
-            animation-fill-mode: forwards;
-            overflow: hidden;
+            margin-top: 20px;
         }
 
         .show-more-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 25px rgba(96, 165, 250, 0.6);
+            background: #DAA520; /* Vàng đồng sáng hơn */
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 15px rgba(184, 134, 11, 0.4);
         }
         
-        .show-more-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transform: skewX(-45deg);
-            animation: shine 4s infinite 2.5s;
+        /* --- MODAL TIỂU SỬ (Giữ Nguyên) --- */
+        .avatar-container {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; align-items: center; justify-content: center; padding: 20px; transition: background 0.7s ease;
         }
-
-        .copyright {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: #aaa;
-            text-shadow: 0 0 5px #000;
-            animation: fadeIn 1s ease 2s;
+        .avatar-container.show {
+            display: flex; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px);
+        }
+        .avatar-content {
+            max-width: 550px;
+            background: #fff;
+            color: #333;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border: 2px solid #B8860B;
+            border-radius: 10px;
+            padding: 40px;
             opacity: 0;
-            animation-fill-mode: forwards;
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-align: left;
+        }
+        .avatar-container.show .avatar-content { 
+            transform: scale(1) translateY(0); 
+            opacity: 1;
+        }
+        .close-btn { 
+            position: absolute; top: 15px; right: 15px; background: #B8860B; color: #fff; width: 35px; height: 35px; border-radius: 50%; border: none; font-size: 1.2rem; cursor: pointer; transition: all 0.4s ease;
+        }
+        .close-btn:hover { 
+            background: #333; transform: rotate(180deg) scale(1.1);
+        }
+        .avatar-content .avatar img { 
+            width: 150px; height: 150px; 
+            object-fit: cover;
+            border-radius: 50%; 
+            border: 4px solid #B8860B; 
+            display: block; 
+            margin: 0 auto 20px;
+        }
+        .info-area h2 { 
+            font-family: 'Playfair Display', serif; font-size: 2rem; color: #B8860B; margin-top: 10px; text-align: center;
+        }
+        .info-area p { 
+            font-size: 1.1rem; color: #666; margin-top: 15px; text-align: justify;
         }
         
-        .avatar-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0); z-index: 4; align-items: center; justify-content: center; padding: 20px; transition: background 0.5s ease; }
-        .avatar-container.show { display: flex; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); }
-        .avatar-content { position: relative; display: flex; flex-direction: column; align-items: center; max-width: 500px; width: 100%; padding: 30px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; overflow: hidden; opacity: 0; transform: scale(0.9) translateY(20px); transition: all 0.5s cubic-bezier(0.165, 0.840, 0.440, 1.000); background: rgba(20, 18, 40, 0.8); }
-        .avatar-container.show .avatar-content { opacity: 1; transform: scale(1) translateY(0); }
-        .close-btn { position: absolute; top: 15px; right: 15px; background: #333; color: #fff; width: 30px; height: 30px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; }
-        .close-btn:hover { background: #ff4d4d; transform: rotate(90deg) scale(1.1); }
-        .avatar-content .avatar img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 3px solid #60a5fa; }
-        .info-area h2 { font-size: 1.8rem; color: #fff; margin-top: 15px; }
-        .info-area p { font-size: 1rem; color: #ccc; }
-
-
-        @keyframes text-focus-in { 0% { filter: blur(12px); opacity: 0; } 100% { filter: blur(0px); opacity: 1; } }
-        @keyframes shine { 100% { left: 150%; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1.2); } 50% { transform: translate(-50%, -50%) scale(1.25); } }
-
-
-        @media (max-width: 768px) { h1 { font-size: 2.2rem; } }
+        /* --- ANIMATIONS --- */
+        @keyframes text-fade-in { 0% { letter-spacing: 0.5em; opacity: 0; filter: blur(5px); } 100% { letter-spacing: 0.15em; opacity: 1; filter: blur(0px); } }
+        @keyframes slideUp-soft { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn-soft { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        @media (max-width: 768px) { 
+            h1 { font-size: 2.8rem; letter-spacing: 0.1em; } 
+            p { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
-    <img class="background" src="blue.gif" alt="Background Animation">
+    <div class="background"></div> 
 
     <div class="main-container">
         <h1>dieannam</h1>
-        <p>A freelance pianist & coder. Welcome to my digital space.</p>
-        <div class="links" id="social-links"></div>
-        <div class="discord-profile">
-            <img class="banner" id="discord-banner" src="" alt="Discord Banner">
-            <div class="discord-profile-content">
-                <div class="avatar">
-                    <img id="discord-avatar" src="" alt="Discord Avatar">
-                </div>
-                <div class="info">
-                    <h3 id="discord-username">Loading...</h3>
-                    <div class="global-name" id="discord-global-name"></div>
-                </div>
+        <p>Âm nhạc không phải là sự gò bó hay chỉ trong một khuôn khổ
+Nó luôn có sự sáng tạo, thay đổi liên tục.</p>
+        
+        <div class="links" id="social-links">
             </div>
-        </div>
-
-        <div class="bot-profile">
-            <img class="banner" id="bot-banner" src="" alt="Bot Banner">
-            <div class="bot-profile-content">
-                 <div class="avatar">
-                    <img id="bot-avatar" src="" alt="Bot Avatar">
-                </div>
-                <div class="info">
-                    <h3 id="bot-username">Loading Bot...</h3>
-                    <div class="info-area">
-                         <a id="bot-invite-link" href="#" target="_blank" class="invite-btn">Invite Me</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="show-more-btn" onclick="toggleAvatar()">About Me</button>
+        
+        <button class="show-more-btn" onclick="toggleAvatar()">Tiểu sử & Câu chuyện</button>
     </div>
 
     <div class="copyright">
@@ -304,27 +215,20 @@
         <div class="avatar-content">
             <button class="close-btn" onclick="toggleAvatar()">✕</button>
             <div class="avatar">
-                <img src="avatar.jpg" alt="dieannam">
-            </div>
+                <img src="profile_photo.jpg" alt="dieannam"> </div>
             <div class="info-area">
-                <h2>Thông tin cá nhân</h2>
-                <p>Dieannam, là một người chơi piano tự do và cũng là một coder tự do, cảm ơn vì đã ghé xem !!!</p>
-            </div>
+                <h2>Thông tin & Tầm nhìn</h2>
+                <p>Dieannam có tên thật là Anh Nam, hiện là một pianist chuyên nghiệp và tự do lưu diễn. Phong cách âm nhạc của tôi chủ yếu là Pop. Cảm ơn vì đã ghé trang của tôi :)) </p>
         </div>
     </div>
 
     <script>
-        // --- JAVASCRIPT ĐÃ ĐƯỢC CẤU TRÚC LẠI VÀ BỔ SUNG ---
+        // --- JAVASCRIPT ĐƯỢC ĐƠN GIẢN HÓA ---
 
         const socialLinks = [
-            { name: 'Instagram', url: 'https://www.instagram.com/diean.nam/' },
-            { name: 'Discord', url: 'https://discord.com/users/864592425883926589' }
+            { name: 'Instagram', url: 'https://www.instagram.com/diean.nam/', dataName: 'Instagram' },
+            { name: 'YouTube', url: 'https://www.youtube.com/@dieannam177', dataName: 'YouTube' }
         ];
-
-        const socialColors = {
-            Instagram: { start: '#E1306C', end: '#FCAF45' },
-            Discord: { start: '#5865F2', end: '#7289DA' },
-        };
 
         function toggleAvatar() {
             const avatarContainer = document.querySelector('.avatar-container');
@@ -333,7 +237,7 @@
                 setTimeout(() => avatarContainer.classList.add('show'), 10);
             } else {
                 avatarContainer.classList.remove('show');
-                setTimeout(() => { avatarContainer.style.display = 'none'; }, 500);
+                setTimeout(() => { avatarContainer.style.display = 'none'; }, 700); 
             }
         }
 
@@ -345,79 +249,17 @@
                 linkElement.href = link.url;
                 linkElement.target = '_blank';
                 linkElement.textContent = link.name;
-                linkElement.style.animationDelay = `${0.4 + index * 0.1}s`;
-                
-                const colors = socialColors[link.name] || { start: '#888', end: '#555' };
-                linkElement.style.background = `linear-gradient(45deg, ${colors.start}, ${colors.end})`;
-                
+                linkElement.setAttribute('data-name', link.dataName); /* Thêm data-name để CSS dễ chọn */
+                linkElement.style.animationDelay = `${1.5 + index * 0.2}s`;
+
                 linksContainer.appendChild(linkElement);
             });
         }
         
-        async function displayDiscordProfile() {
-            const avatarImg = document.getElementById('discord-avatar');
-            const bannerImg = document.getElementById('discord-banner');
-            const usernameEl = document.getElementById('discord-username');
-            const globalNameEl = document.getElementById('discord-global-name');
-            const apiUrl = 'https://discordlookup.mesalytic.moe/v1/user/864592425883926589';
+        // Bỏ các hàm displayDiscordProfile và displayBotProfile
 
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error(`API Error: ${response.status}`);
-                }
-                const data = await response.json();
-
-                if (avatarImg) avatarImg.src = data.avatar.link + '?size=128';
-                if (bannerImg && data.banner) bannerImg.src = data.banner.link;
-                if (usernameEl) usernameEl.textContent = data.username;
-                if (globalNameEl) globalNameEl.textContent = data.global_name;
-
-            } catch (error) {
-                console.error("Failed to fetch Discord profile:", error);
-                if (usernameEl) usernameEl.textContent = "Error";
-                if (globalNameEl) globalNameEl.textContent = "Could not load profile.";
-            }
-        }
-
-        /**
-         * --- HÀM MỚI ĐỂ LẤY THÔNG TIN BOT ---
-         * Lấy dữ liệu của bot từ API và cập nhật giao diện.
-         */
-        async function displayBotProfile() {
-            const avatarImg = document.getElementById('bot-avatar');
-            const bannerImg = document.getElementById('bot-banner');
-            const usernameEl = document.getElementById('bot-username');
-            const inviteLink = document.getElementById('bot-invite-link');
-
-            const botApiUrl = 'https://discordlookup.mesalytic.moe/v1/user/1138065620135575602';
-            const botInviteUrl = 'https://discord.com/oauth2/authorize?client_id=1138065620135575602&permissions=8&integration_type=0&scope=bot';
-
-            // Cập nhật link mời ngay lập tức
-            if(inviteLink) inviteLink.href = botInviteUrl;
-
-            try {
-                const response = await fetch(botApiUrl);
-                 if (!response.ok) {
-                    throw new Error(`API Error: ${response.status}`);
-                }
-                const data = await response.json();
-
-                if(avatarImg) avatarImg.src = data.avatar.link + '?size=128';
-                if(bannerImg && data.banner) bannerImg.src = data.banner.link + '?size=480';
-                if(usernameEl) usernameEl.textContent = data.username;
-
-            } catch (error) {
-                console.error("Failed to fetch Bot profile:", error);
-                if (usernameEl) usernameEl.textContent = "Bot Offline";
-            }
-        }
-
-        // Gọi tất cả các hàm cần thiết khi trang tải xong.
         window.onload = () => {
             renderSocialLinks();
-            displayDiscordProfile();
-            displayBotProfile(); // Gọi hàm mới
         };
 
     </script>
