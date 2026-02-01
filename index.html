@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIEANNAM</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
     <style>
         /* --- PHONG CÁCH CHUNG (Giữ Nguyên Tính Nghệ Thuật) --- */
@@ -29,12 +29,11 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            /* Thay thế bằng một ảnh lớn, chất lượng cao, độ mờ thấp (Ví dụ: bàn phím piano, phòng hòa nhạc cổ) */
-            background-image: url('main_bg.jpg'); /* 🖼️ KHUNG HÌNH NỀN 1: Thay bằng ảnh nền chính */
+            background-image: url('main_bg.jpg'); /* Ảnh nền chính */
             background-size: cover;
             background-position: center;
-            filter: grayscale(100%) brightness(110%) contrast(100%); /* Hiệu ứng đen trắng cổ điển, sáng */
-            opacity: 0.3; /* Độ mờ nhẹ */
+            filter: grayscale(100%) brightness(110%) contrast(100%);
+            opacity: 0.3;
             z-index: 0;
             transition: all 1.5s ease;
         }
@@ -48,7 +47,7 @@
             padding: 20px;
             text-align: center;
             gap: 25px; 
-            background-color: rgba(255, 255, 255, 0.7); /* Lớp phủ trắng trong suốt để tăng tính dễ đọc */
+            background-color: rgba(255, 255, 255, 0.75); /* Tăng độ mờ nhẹ để chữ nổi hơn */
             z-index: -1;
         }
         
@@ -60,20 +59,40 @@
             letter-spacing: 0.15em;
             margin-bottom: 5px;
             text-transform: capitalize;
-            color: #4A4A4A; /* Xám than lịch sự */
+            color: #4A4A4A;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
             animation: text-fade-in 1.5s ease-out 0.5s forwards;
             opacity: 0;
         }
 
-        p {
-            font-size: 1.3rem;
-            font-weight: 400;
-            max-width: 600px;
-            color: #666;
-            line-height: 1.8;
+        /* Style mới cho câu trích dẫn nổi bật */
+        .quote-box {
+            max-width: 700px;
             animation: slideUp-soft 1.2s ease-out forwards 1s;
             opacity: 0;
+        }
+
+        .quote-text {
+            font-size: 1.5rem; /* Chữ lớn hơn */
+            font-weight: 500;
+            font-style: italic; /* Chữ nghiêng nghệ thuật */
+            color: #2c2c2c; /* Màu đậm hơn để dễ đọc */
+            line-height: 1.6;
+            display: block;
+        }
+
+        .quote-author {
+            display: block;
+            margin-top: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: #B8860B; /* Màu vàng đồng (Signature) */
+            letter-spacing: 0.05em;
+        }
+
+        .quote-author::before {
+            content: "— "; /* Dấu gạch ngang trước tên */
         }
 
         /* --- KHU VỰC LIÊN KẾT XÃ HỘI --- */
@@ -81,7 +100,7 @@
             display: flex;
             gap: 20px;
             justify-content: center;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         .links a {
@@ -91,7 +110,7 @@
             padding: 12px 30px;
             text-decoration: none;
             color: #fff;
-            border-radius: 50px; /* Hình dạng viên thuốc thanh lịch */
+            border-radius: 50px;
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             animation: scaleIn-soft 1.2s ease-out forwards 1.5s;
             opacity: 0;
@@ -104,19 +123,22 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Màu sắc riêng biệt cho Instagram và YouTube */
+        /* Màu sắc cho Instagram */
         .links a[data-name="Instagram"] {
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             animation-delay: 1.5s;
         }
-        .links a[data-name="YouTube"] {
-            background: linear-gradient(45deg, #ff0000, #c4302b);
+        
+        /* Màu sắc MỚI cho Facebook (Thay thế YouTube) */
+        .links a[data-name="Facebook"] {
+            /* Gradient xanh Facebook sang trọng */
+            background: linear-gradient(45deg, #1877F2, #3b5998, #0056b3); 
             animation-delay: 1.7s;
         }
 
         /* --- NÚT TIỂU SỬ --- */
         .show-more-btn {
-            background: #B8860B; /* Vàng đồng chủ đạo */
+            background: #B8860B;
             color: #fff;
             padding: 15px 40px;
             font-family: 'Playfair Display', serif;
@@ -132,12 +154,12 @@
         }
 
         .show-more-btn:hover {
-            background: #DAA520; /* Vàng đồng sáng hơn */
+            background: #DAA520;
             transform: translateY(-2px) scale(1.02);
             box-shadow: 0 8px 15px rgba(184, 134, 11, 0.4);
         }
         
-        /* --- MODAL TIỂU SỬ (Giữ Nguyên) --- */
+        /* --- MODAL TIỂU SỬ --- */
         .avatar-container {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; align-items: center; justify-content: center; padding: 20px; transition: background 0.7s ease;
         }
@@ -189,7 +211,7 @@
         
         @media (max-width: 768px) { 
             h1 { font-size: 2.8rem; letter-spacing: 0.1em; } 
-            p { font-size: 1.1rem; }
+            .quote-text { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -198,8 +220,11 @@
 
     <div class="main-container">
         <h1>dieannam</h1>
-        <p>Âm nhạc không phải là sự gò bó hay chỉ trong một khuôn khổ
-Nó luôn có sự sáng tạo, thay đổi liên tục.</p>
+        
+        <div class="quote-box">
+            <span class="quote-text">“Âm nhạc không phải là sự gò bó hay chỉ trong một khuôn khổ, nó luôn có sự sáng tạo, thay đổi liên tục.”</span>
+            <span class="quote-author">Anh Nam</span>
+        </div>
         
         <div class="links" id="social-links">
             </div>
@@ -217,17 +242,18 @@ Nó luôn có sự sáng tạo, thay đổi liên tục.</p>
             <div class="avatar">
                 <img src="profile_photo.jpg" alt="dieannam"> </div>
             <div class="info-area">
-                <h2>Thông tin & Tầm nhìn</h2>
-                <p>Dieannam có tên thật là Anh Nam, hiện là một pianist chuyên nghiệp và tự do lưu diễn. Phong cách âm nhạc của tôi chủ yếu là Pop. Cảm ơn vì đã ghé trang của tôi :)) </p>
+                <h2>Thông tin giới thiệu</h2>
+                <p>Dieannam có tên thật là Anh Nam. Một người biểu diễn piano tự do, rất vui nếu được các bạn theo dõi mình qua hai nền tảng mạng xã hội của mình.</p>
+            </div>
         </div>
     </div>
 
     <script>
-        // --- JAVASCRIPT ĐƯỢC ĐƠN GIẢN HÓA ---
-
+        // --- CẤU HÌNH LIÊN KẾT XÃ HỘI ---
         const socialLinks = [
             { name: 'Instagram', url: 'https://www.instagram.com/diean.nam/', dataName: 'Instagram' },
-            { name: 'YouTube', url: 'https://www.youtube.com/@dieannam177', dataName: 'YouTube' }
+            /* Thay đổi URL Facebook của bạn ở dòng dưới đây */
+            { name: 'Facebook', url: 'https://www.facebook.com/dieannam', dataName: 'Facebook' } 
         ];
 
         function toggleAvatar() {
@@ -249,15 +275,13 @@ Nó luôn có sự sáng tạo, thay đổi liên tục.</p>
                 linkElement.href = link.url;
                 linkElement.target = '_blank';
                 linkElement.textContent = link.name;
-                linkElement.setAttribute('data-name', link.dataName); /* Thêm data-name để CSS dễ chọn */
+                linkElement.setAttribute('data-name', link.dataName);
                 linkElement.style.animationDelay = `${1.5 + index * 0.2}s`;
 
                 linksContainer.appendChild(linkElement);
             });
         }
         
-        // Bỏ các hàm displayDiscordProfile và displayBotProfile
-
         window.onload = () => {
             renderSocialLinks();
         };
