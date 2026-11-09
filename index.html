@@ -1283,8 +1283,7 @@
             '<div class="news-thumb">' + (n.img ? '<img src="' + n.img + '" width="320" height="200" alt="" loading="lazy" decoding="async">' : '<i class="fa-regular fa-newspaper"></i>') + '</div>' +
             '<span class="news-date">' + d + '</span>' +
             '<div class="news-main"><h3 class="news-title">' + n.title + (n.isNew ? ' <span class="tag-new">New</span>' : '') + '</h3>' +
-            (n.text ? '<p class="news-text">' + n.text + '</p>' : '') + '</div>' +
-            '<i class="fa-solid fa-chevron-right news-arrow"></i>';
+            (n.text ? '<p class="news-text">' + n.text + '</p>' : '') + '</div>' +;
         newsTimeline.appendChild(row);
     });
 
