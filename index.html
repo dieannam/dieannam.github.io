@@ -952,6 +952,7 @@
         #show .sl.on, #show .sl.out { visibility: visible; }
         #show .sl.on { z-index: 3; opacity: 1; transition: opacity 1.2s ease; }
         #show .sl.out { z-index: 2; opacity: 0; transition: opacity 1s ease .55s; }
+        #show .sl.nb { background: radial-gradient(ellipse 70% 60% at 75% 30%, rgba(197,160,89,.14), transparent 70%), radial-gradient(ellipse 60% 50% at 15% 85%, rgba(197,160,89,.07), transparent 70%); }
         #show .k-quote, #show .k-award, #show .k-list { background: radial-gradient(ellipse 70% 60% at 75% 30%, rgba(197,160,89,.14), transparent 70%); }
 
         /* Nền: Ken Burns trôi chậm liên tục */
@@ -961,6 +962,19 @@
         #show .on .bg { animation: kb 24s linear forwards; }
         @keyframes kb { from { scale: 1.14; translate: 0 0; } to { scale: 1.02; translate: var(--kx,-2%) var(--ky,-1.5%); } }
         #show .k-cover::after, #show .k-photo::after, #show .k-end::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(6,6,6,.82), rgba(6,6,6,.1) 70%), linear-gradient(0deg, rgba(6,6,6,.75), transparent 50%); pointer-events: none; }
+
+        /* Cảnh ảnh lớn: để ảnh sáng, rõ, thấy gần như nguyên khung; chỉ tối nhẹ ở đáy để chữ dễ đọc */
+        #show .k-photo .bg { inset: 0; scale: 1; }
+        #show .k-photo .bg::after { background: rgba(6,6,6,.06); }
+        #show .k-photo.on .bg { animation: kbp 24s linear forwards; }
+        @keyframes kbp { from { scale: 1; translate: 0 0; } to { scale: 1.07; translate: var(--kx,-1%) var(--ky,-.8%); } }
+        #show .k-photo::after { background: linear-gradient(0deg, rgba(6,6,6,.82) 0%, rgba(6,6,6,.45) 22%, transparent 48%), linear-gradient(90deg, rgba(6,6,6,.35), transparent 45%); }
+        #show .k-photo .ey, #show .k-photo .h, #show .k-photo .p { text-shadow: 0 2px 18px rgba(0,0,0,.75); }
+        #show .k-cover .bg { inset: 0; scale: 1.02; }
+        #show .k-cover .bg::after, #show .k-end .bg::after { background: rgba(6,6,6,.22); }
+        #show .k-cover.on .bg { animation: kbp 24s linear forwards; }
+        /* Cảnh chia đôi: nền bớt tối, ảnh chính to hơn */
+        #show .bg.bl::after { background: rgba(6,6,6,.6); }
 
         /* Khối nội dung: vào có zoom nhẹ rồi trôi chậm; ra thì bay lên + mờ (transition tách riêng khỏi animation) */
         #show .in { position: relative; z-index: 2; width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 clamp(24px,7vw,110px); transition: transform .9s var(--ez), opacity .7s ease; }
@@ -1022,7 +1036,7 @@
         #show .fr { position: relative; overflow: hidden; clip-path: var(--cp, inset(0 0 100% 0)); }
         #show .on .fr { animation: frIn 1.4s var(--ez) .4s forwards; }
         @keyframes frIn { to { clip-path: inset(0); } }
-        #show .fr img { display: block; width: auto; height: auto; max-width: min(100%,680px); max-height: 68vh; scale: 1.3; will-change: transform; }
+        #show .fr img { display: block; width: auto; height: auto; max-width: min(100%,780px); max-height: 74vh; scale: 1.3; will-change: transform; }
         #show .on .fr img { animation: imz 18s cubic-bezier(.2,.6,.3,1) .4s forwards; }
         @keyframes imz { to { scale: 1.04; translate: calc(var(--ix,0px) * -.06) -1.5%; } }
         #show .fr::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.2) 50%, transparent 60%); translate: -130% 0; }
@@ -1038,6 +1052,18 @@
         #show .on .gh { animation: ghin 2s ease-out .6s forwards, gh 24s linear .6s forwards; }
         @keyframes ghin { to { opacity: 1; } }
         @keyframes gh { from { translate: 6% 0; } to { translate: -5% 0; } }
+
+        /* Trang Thành tích gộp: tiêu đề bên trái, các mốc nối tiếp nhau bên phải */
+        #show .k-awards .bg::after { background: rgba(6,6,6,.78); }
+        #show .aw2 { display: grid; grid-template-columns: minmax(0,.75fr) minmax(0,1.7fr); gap: clamp(24px,5vw,80px); align-items: center; }
+        #show .aw2 .h { font-size: clamp(2.2rem,4.4vw,4rem); max-width: 10ch; }
+        #show .ar { --ix: 46px; --iy: 0px; position: relative; display: grid; grid-template-columns: 8.5rem 1fr; column-gap: 1.2rem; row-gap: .15rem; padding: clamp(.4rem,1.15vh,.8rem) 0; }
+        #show .ar::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(197,160,89,.3); transform-origin: left; }
+        #show .on .ar::after { animation: lnd2 1s var(--out) calc(.8s + var(--d,0) * .11s) backwards; }
+        #show .ad { grid-row: span 2; padding-top: .3rem; font-size: .78rem; letter-spacing: .06em; color: var(--gold-light); }
+        #show .at { font: 500 min(1.4rem,2.6vh) / 1.25 var(--font-display); }
+        #show .aa { font-size: clamp(.8rem,1vw,.95rem); line-height: 1.45; color: rgba(240,236,228,.72); }
+        #show .aa i { margin-right: .55rem; color: var(--gold); }
 
         /* Danh sách */
         #show .ls { list-style: none; display: grid; gap: 1.2rem; }
@@ -1078,6 +1104,12 @@
         #show .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; z-index: 10; background: rgba(240,236,228,.14); }
         #show .bar i { display: block; height: 100%; background: var(--gold-light); transform-origin: left; transform: scaleX(0); }
         @keyframes fw { to { transform: scaleX(1); } }
+        #show .nv { position: absolute; top: 50%; z-index: 10; width: 54px; height: 54px; margin-top: -27px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(197,160,89,.5); background: rgba(6,6,6,.55); color: var(--text); font-size: 1rem; cursor: pointer; transition: background .3s, color .3s, opacity .4s, transform .35s var(--out); }
+        #show .nv.pv { left: clamp(12px,2.5vw,36px); } #show .nv.nx { right: clamp(12px,2.5vw,36px); }
+        #show .nv:hover { background: var(--gold); color: #060606; }
+        #show .nv.pv:hover { transform: translateX(-4px); } #show .nv.nx:hover { transform: translateX(4px); }
+        #show .nv:active { scale: .92; }
+        #show .nv.dis { opacity: 0; pointer-events: none; }
 
         #show.paused *, #show.paused *::before, #show.paused *::after { animation-play-state: paused !important; }
 
@@ -1085,15 +1117,21 @@
             #show .sp { grid-template-columns: 1fr; gap: 26px; align-content: center; }
             #show .fw { order: -1; max-width: 80%; }
             #show .fw::after { inset: 10px -10px -10px 10px; }
-            #show .fr img { max-height: 32vh; }
+            #show .fr img { max-height: 36vh; }
             #show .bt { padding-bottom: 18vh; }
             #show .gh { font-size: 48vw; }
             #show .cb { width: 38px; height: 38px; }
+            #show .k-awards { overflow-y: auto; align-items: flex-start; }
+            #show .k-awards .in { margin: auto; padding-top: 76px; padding-bottom: 40px; }
+            #show .aw2 { grid-template-columns: 1fr; gap: 12px; }
+            #show .aw2 .h { font-size: 2rem; max-width: none; }
+            #show .ar { grid-template-columns: 1fr; padding: .55rem 0; }
+            #show .ad { grid-row: auto; padding-top: 0; }
+            #show .at { font-size: 1.1rem; }
+            #show .nv { width: 40px; height: 40px; margin-top: -20px; font-size: .85rem; }
+            #show .nv.pv { left: 8px; } #show .nv.nx { right: 8px; }
         }
-        @media (prefers-reduced-motion: reduce) {
-            #show .pt, #show .beam, #show .wipe { display: none; }
-            #show *, #show *::before, #show *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
-        }
+        /* Lưu ý: cố ý KHÔNG tắt animation theo prefers-reduced-motion, vì Windows (tắt "Show animations", chế độ tiết kiệm pin) và macOS (Reduce Motion) báo cờ này làm trình chiếu đứng yên trên PC/laptop. */
     </style>
 </head>
 <body>
@@ -1567,27 +1605,26 @@
             A('photo', { ch: 'Giới thiệu', bg: 'crescendo2026.webp', ey: T('.stage-caption-tag'), t: $('.stage-caption h2').innerHTML });
             A('split', { ch: 'Giới thiệu', img: 'dieannampiano.webp', bg: 'dieannampiano.webp', blur: 1, ey: T('.perf-eyebrow'), t: $('.perf-title').innerHTML, p: T('.perf-body') });
 
-            NEWS.forEach(n => {
-                const o = { ch: 'Tin tức', ey: n.date + (n.isNew ? ' ' + NB : ''), t: n.title, p: n.text.trim() };
-                n.img ? A('split', { ...o, img: n.img, bg: n.img, blur: 1 })
-                      : A('award', { ...o, ic: 'fa-regular fa-newspaper', a: o.p, p: '', y: year(n.date) });
-            });
-
             $$('.g-card').forEach(c => {
                 const src = $('img', c).getAttribute('src');
                 A('split', { ch: 'Hình ảnh', img: src, bg: src, blur: 1, ey: T('.g-cap span', c), t: T('.g-cap p', c) });
             });
 
-            A('photo', { ch: 'Thành tích', bg: 'yamaha.webp', ey: 'Thành tích', t: $('#view-awards .sec-title').innerHTML, p: 'Những cột mốc và giải thưởng nổi bật trên hành trình âm nhạc.' });
-            $$('#experience .tl-entry').forEach(e => {
+            // Thành tích: gộp toàn bộ vào MỘT trang duy nhất
+            const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+            const rows = $$('#experience .tl-entry').map(e => {
                 const dt = T('.tl-date', e), tt = $('.tl-title', e).cloneNode(true), nw = $('.tag-new', tt);
                 if (nw) nw.remove();
-                const body = $('.tl-body', e).cloneNode(true), row = $('.award-row', body), ul = $('ul', body);
-                const ic = row ? $('i', row).className : 'fas fa-music', a = row ? row.textContent.trim() : '';
-                if (row) row.remove();
-                if (ul) return A('list', { ch: 'Thành tích', ey: dt, t: tt.innerHTML.trim(), items: $$('li', ul).map(l => l.innerHTML) });
-                A('award', { ch: 'Thành tích', ey: dt + (nw ? ' ' + NB : ''), t: tt.innerHTML.trim(), ic, a, p: body.textContent.replace(/\s+/g, ' ').trim(), y: year(dt) });
-            });
+                $$('br', tt).forEach(x => x.replaceWith(' '));
+                const body = $('.tl-body', e), row = $('.award-row', body), ul = $('ul', body);
+                let ic = 'fas fa-music', a;
+                if (ul) a = $$('li strong', ul).map(x => x.textContent.replace(/["“”]/g, '')).join(' · ');
+                else if (row) { ic = $('i', row).className; a = row.textContent.replace(/\s+/g, ' ').trim(); }
+                else a = body.textContent.replace(/\s+/g, ' ').trim();
+                return '<div class="r ar"><span class="ad">' + esc(dt) + (nw ? ' ' + NB : '') + '</span><span class="at">' + esc(tt.textContent.replace(/\s+/g, ' ').trim()) +
+                       '</span><span class="aa"><i class="' + ic + '"></i>' + esc(a) + '</span></div>';
+            }).join('');
+            A('awards', { ch: 'Thành tích', bg: 'yamaha.webp', blur: 1, ey: 'Thành tích', t: $('#view-awards .sec-title').innerHTML, rows, dur: 15000 });
 
             A('end', { ch: 'Liên hệ', bg: 'picture1.webp', ey: 'Liên hệ', t: 'Cảm ơn bạn đã theo dõi',
                 li: $$('.contact-list li').slice(1).map(li => '<li class="r">' + li.innerHTML + '</li>').join(''),
@@ -1607,6 +1644,7 @@
                 case 'photo': b = '<div class="in bt">' + r('ey', s.ey) + '<h2 class="r h">' + s.t + '</h2>' + (s.p ? r('p', s.p) : '') + '</div>'; break;
                 case 'split': b = '<div class="in sp"><div>' + r('ey', s.ey) + '<h2 class="r h">' + s.t + '</h2>' + (s.p ? r('p', s.p) : '') + (s.x || '') + '</div><div class="fw"><div class="fr"><img src="' + s.img + '" alt="" decoding="async"></div></div></div>'; break;
                 case 'award': b = '<div class="in aw">' + r('ic', '<i class="' + s.ic + '"></i>') + r('ey', s.ey) + '<h2 class="r h">' + s.t + '</h2>' + (s.a ? '<div class="r ln"></div>' + r('al', s.a) : '') + (s.p ? r('p', s.p) : '') + '</div><div class="gh">' + s.y + '</div>'; break;
+                case 'awards': b = '<div class="in aw2"><div>' + r('ey', s.ey) + '<h2 class="r h">' + s.t + '</h2></div><div class="al2">' + s.rows + '</div></div>'; break;
                 case 'list': b = '<div class="in sp"><div>' + r('ey', s.ey) + '<h2 class="r h">' + s.t + '</h2></div><ul class="ls">' + s.items.map(t => '<li class="r">' + t + '</li>').join('') + '</ul></div>'; break;
                 case 'end': b = '<div class="in ct">' + r('ey', s.ey) + '<h2 class="r h">' + s.t + '</h2><ul class="cl">' + s.li + '</ul><div class="row">' + s.btn + '</div></div>'; break;
             }
@@ -1620,9 +1658,9 @@
         show.innerHTML = '<div class="stage"></div><div class="pt">' + dots + '</div><div class="beam"></div><div class="fx"></div><div class="wipe"></div><div class="lb t"></div><div class="lb b"></div>' +
             '<div class="hud top"><div class="meta"><span class="chap"></span></div><div class="acts">' +
             '<button class="cb" data-a="pp" type="button"><i class="fa-solid fa-pause"></i></button>' +
-            '<button class="cb" data-a="x" type="button" aria-label="Đóng trình chiếu"><i class="fa-solid fa-xmark"></i></button></div></div><div class="bar"><i></i></div>';
+            '<button class="cb" data-a="x" type="button" aria-label="Đóng trình chiếu"><i class="fa-solid fa-xmark"></i></button></div></div><button class="nv pv dis" data-a="pv" type="button" aria-label="Cảnh trước"><i class="fa-solid fa-chevron-left"></i></button><button class="nv nx" data-a="nx" type="button" aria-label="Cảnh kế tiếp"><i class="fa-solid fa-chevron-right"></i></button><div class="bar"><i></i></div>';
         document.body.appendChild(show);
-        const stage = $('.stage', show), chap = $('.chap', show), fx = $('.fx', show), wipe = $('.wipe', show), pp = $('[data-a=pp]', show), barI = $('.bar i', show);
+        const stage = $('.stage', show), chap = $('.chap', show), fx = $('.fx', show), wipe = $('.wipe', show), pp = $('[data-a=pp]', show), barI = $('.bar i', show), bPv = $('.nv.pv', show), bNx = $('.nv.nx', show);
 
         let S = [], els = [], dur = [], i = -1, busy = false, el = 0, chapNow = '';
         const isOpen = () => show.classList.contains('open');
@@ -1662,7 +1700,7 @@
             S = build(); stage.innerHTML = ''; dur = []; pre.length = 0;
             els = S.map((s, n) => {
                 const e = document.createElement('section');
-                e.className = 'sl k-' + s.k; e.innerHTML = html(s);
+                e.className = 'sl k-' + s.k + (s.bg ? '' : ' nb'); e.innerHTML = html(s);
                 $$('.r', e).forEach((x, j) => x.style.setProperty('--d', j));
                 $$('.h,.nm', e).forEach(wrapW);
                 $$('.tg span', e).forEach((x, j) => x.style.setProperty('--tn', j));
@@ -1686,13 +1724,14 @@
         function go(n) {
             if (busy || n < 0 || n >= els.length || n === i) return;
             const cur = els[i], nx = els[n], my = ++gen;
-            busy = true; el = 0; i = n;
+            const from = i; busy = true; el = 0; i = n;
+            bPv.classList.toggle('dis', n === 0); bNx.classList.toggle('dis', n === els.length - 1);
             warm(n); warm(n + 1); warm(n + 2);
             if (cur) {
                 cur.classList.add('out');
                 clearTimeout(cur._t);
                 cur._t = setTimeout(() => cur.classList.remove('on', 'out'), 2100);
-                const a = n % 2, E = 'cubic-bezier(.77,0,.18,1)', sk = ' skewX(-14deg)';
+                const a = n > from ? 1 : 0, E = 'cubic-bezier(.77,0,.18,1)', sk = ' skewX(-14deg)';
                 wipe.animate([
                     { opacity: 0, transform: 'translate3d(' + (a ? '-60vw' : '110vw') + ',0,0)' + sk },
                     { opacity: 1, offset: .2 }, { opacity: 1, offset: .8 },
@@ -1707,7 +1746,7 @@
                 barI.style.animation = 'none'; void barI.offsetWidth;
                 barI.style.animation = 'fw ' + dur[n] + 'ms linear forwards';
             });
-            setTimeout(() => { if (my === gen) busy = false; }, 1500);
+            setTimeout(() => { if (my === gen) busy = false; }, 900);
             if (S[n].ch !== chapNow) {
                 chapNow = S[n].ch; chap.textContent = chapNow;
                 chap.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 700, easing: 'ease-out' });
@@ -1738,7 +1777,7 @@
             const b = cta.getBoundingClientRect();
             show.style.setProperty('--ox', (b.left + b.width / 2) + 'px');
             show.style.setProperty('--oy', (b.top + b.height / 2) + 'px');
-            make(); i = -1; busy = false; chapNow = ''; barI.style.animation = 'none';
+            make(); i = -1; busy = false; chapNow = ''; bPv.classList.add('dis'); bNx.classList.remove('dis'); barI.style.animation = 'none';
             show.classList.remove('paused'); setPP();
             lock(true); show.classList.add('open');
             $('[data-a=x]', show).focus({ preventScroll: true });
@@ -1757,6 +1796,14 @@
             const a = b.dataset.a;
             if (a === 'x') close(); else if (a === 'pp') toggle(); else if (a === 'pv') go(i - 1); else if (a === 'nx') go(i + 1); else if (a === 're') go(0);
         });
+        // vuốt trái/phải trên màn hình cảm ứng
+        let tx = 0, ty = 0;
+        show.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+        show.addEventListener('touchend', e => {
+            if (!isOpen() || e.target.closest('a,button')) return;
+            const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+            if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? i + 1 : i - 1);
+        }, { passive: true });
         document.addEventListener('keydown', e => {
             if (!isOpen()) return;
             const k = e.key;
