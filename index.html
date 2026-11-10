@@ -973,6 +973,8 @@
         #show .k-cover .bg { inset: 0; scale: 1.02; }
         #show .k-cover .bg::after, #show .k-end .bg::after { background: rgba(6,6,6,.22); }
         #show .k-cover.on .bg { animation: kbp 24s linear forwards; }
+        #show .k-end::after { background: radial-gradient(ellipse 60% 55% at 50% 50%, rgba(6,6,6,.62), rgba(6,6,6,.2) 100%), linear-gradient(0deg, rgba(6,6,6,.75), transparent 55%); }
+        #show .k-end .bg::after { background: rgba(6,6,6,.18); }
         /* Cảnh chia đôi: nền bớt tối, ảnh chính to hơn */
         #show .bg.bl::after { background: rgba(6,6,6,.6); }
 
@@ -1311,17 +1313,37 @@
                         <img decoding="async" src="yamaha.webp" width="1600" height="1066" alt="Diệp Anh Nam biểu diễn trên đàn Yamaha" loading="lazy">
                         <figcaption class="g-cap"><span>Crescendo2026</span><p>Solo Performance</p></figcaption>
                     </figure>
+                    <figure class="g-card reveal reveal-d1" style="--ar:1.7778">
+                        <img decoding="async" src="cam-on-bg.webp" width="1920" height="1080" alt="Diệp Anh Nam biểu diễn piano trên sân khấu Crescendo 2026" loading="lazy">
+                        <figcaption class="g-cap"><span>Crescendo2026</span><p>Solo Performance</p></figcaption>
+                    </figure>
+                    <figure class="g-card reveal reveal-d2" style="--ar:1.7778">
+                        <img decoding="async" src="thanh-tich-bg.webp" width="1920" height="1080" alt="Diệp Anh Nam tập trung biểu diễn trên đàn Yamaha" loading="lazy">
+                        <figcaption class="g-cap"><span>Crescendo2026</span><p>Solo Performance</p></figcaption>
+                    </figure>
                     <figure class="g-card reveal reveal-d1" style="--ar:0.75">
                         <img decoding="async" src="bechstein.webp" width="1200" height="1600" alt="Diệp Anh Nam biểu diễn trên đàn C. Bechstein" loading="lazy">
                         <figcaption class="g-cap"><span>Zhongsin2026</span><p>Solo Performance</p></figcaption>
                     </figure>
                     <figure class="g-card reveal reveal-d2" style="--ar:2.6158">
                         <img decoding="async" src="picture1.webp" width="1920" height="734" alt="Diệp Anh Nam trình diễn trên sân khấu" loading="lazy">
-                        <figcaption class="g-cap"><span>Ảnh chụp chơi Piano</span><p>Thời điểm tại Nha Trang</p></figcaption>
+                        <figcaption class="g-cap"><span>Dieannam</span><p>Piano</p></figcaption>
                     </figure>
                     <figure class="g-card reveal reveal-d1" style="--ar:1.5">
                         <img decoding="async" src="dieannam_tuanmanh.webp" width="1600" height="1066" loading="lazy" alt="Diệp Anh Nam (Dieannam) song tấu piano cùng nghệ sĩ Pianist Tuấn Mạnh">
                         <figcaption class="g-cap"><span>Song tấu · Hòa nhạc "Tiếng Mùa Xuân"</span><p>Cùng nghệ sĩ piano Tuấn Mạnh</p></figcaption>
+                    </figure>
+                    <figure class="g-card reveal reveal-d1" style="--ar:0.75">
+                        <img decoding="async" src="dieannampiano.webp" width="1200" height="1600" alt="Diệp Anh Nam (Dieannam) biểu diễn Piano" loading="lazy">
+                        <figcaption class="g-cap"><span>Dieannam</span><p>Sân khấu là ngôn ngữ của tôi</p></figcaption>
+                    </figure>
+                    <figure class="g-card reveal reveal-d2" style="--ar:1.7778">
+                        <img decoding="async" src="headerbg.webp" alt="Diệp Anh Nam trước cây đàn piano" loading="lazy">
+                        <figcaption class="g-cap"><span>Dieannam</span><p>Piano Performance</p></figcaption>
+                    </figure>
+                    <figure class="g-card reveal reveal-d1" style="--ar:0.4609">
+                        <img decoding="async" src="bgpiano.webp" width="472" height="1024" alt="Diệp Anh Nam bên cây đàn piano" loading="lazy">
+                        <figcaption class="g-cap"><span>Dieannam</span><p>Piano Performance</p></figcaption>
                     </figure>
                 </div>
 
@@ -1569,6 +1591,11 @@
         }
     }
 
+    // GALLERY: tự lấy tỉ lệ thật của từng ảnh để không bị cắt xén hay nhảy bố cục
+    document.querySelectorAll('.g-card img').forEach(im => {
+        const fit = () => { if (im.naturalWidth && im.naturalHeight) im.closest('.g-card').style.setProperty('--ar', (im.naturalWidth / im.naturalHeight).toFixed(4)); };
+        im.complete ? fit() : im.addEventListener('load', fit, { once: true });
+    });
     // GALLERY: chỉ xem, không phóng to, không tải/kéo ảnh
     document.querySelectorAll('.g-card').forEach(c => {
         c.addEventListener('contextmenu', e => e.preventDefault());
@@ -1624,9 +1651,9 @@
                 return '<div class="r ar"><span class="ad">' + esc(dt) + (nw ? ' ' + NB : '') + '</span><span class="at">' + esc(tt.textContent.replace(/\s+/g, ' ').trim()) +
                        '</span><span class="aa"><i class="' + ic + '"></i>' + esc(a) + '</span></div>';
             }).join('');
-            A('awards', { ch: 'Thành tích', bg: 'yamaha.webp', blur: 1, ey: 'Thành tích', t: $('#view-awards .sec-title').innerHTML, rows, dur: 15000 });
+            A('awards', { ch: 'Thành tích', bg: 'thanh-tich-bg.webp', blur: 1, ey: 'Thành tích', t: $('#view-awards .sec-title').innerHTML, rows, dur: 15000 });
 
-            A('end', { ch: 'Liên hệ', bg: 'picture1.webp', ey: 'Liên hệ', t: 'Cảm ơn bạn đã theo dõi',
+            A('end', { ch: 'Liên hệ', bg: 'cam-on-bg.webp', ey: 'Liên hệ', t: 'Cảm ơn bạn đã theo dõi',
                 li: $$('.contact-list li').slice(1).map(li => '<li class="r">' + li.innerHTML + '</li>').join(''),
                 btn: $$('.hero-social-btn').map(a => '<a class="r bn" href="' + a.href + '" target="_blank" rel="noopener">' + a.innerHTML + '</a>').join('') +
                      '<button class="r bn" data-a="re" type="button"><i class="fa-solid fa-rotate-left"></i> Xem lại</button>' +
